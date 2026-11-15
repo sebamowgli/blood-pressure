@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>마음혈압 · 혈압 체크</title>
+<style>
+:root{--bg:#effaf7;--card:#fff;--ink:#12403a;--sub:#5d8a83;--mint:#2bbfa4;--mint2:#9fe5d6;--line:#d3eee8;--low:#4a90d9;--normal:#14b8a6;--elev:#d9a514;--pre:#f08a24;--high:#e5484d;--coral:#ff8a80;--sun:#ffc857;--sky:#6ec6ff;--lav:#b79cff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}}
+:root[data-theme="dark"]{--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:16px;display:flex;flex-direction:column}header{order:-3}section.card:nth-of-type(1){order:-2}section.card:nth-of-type(6){order:-1}
+header{background:linear-gradient(135deg,#2bbfa4,#6ec6ff 55%,#b79cff);border-radius:24px;padding:20px;color:#fff;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+header h1{margin:0;font-size:1.5rem}header p{margin:2px 0 0;opacity:.95;font-size:.92rem}
+.fl{position:absolute;font-size:1.5rem;animation:fl 3s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-6px)}}header svg.deco{position:absolute;right:-6px;bottom:-8px;opacity:.35}
+.card{background:var(--card);border-radius:20px;padding:18px;margin-top:14px;border:1px solid var(--line);border-top:5px solid var(--mint)}
+section.card:nth-of-type(2){border-top-color:var(--lav)}section.card:nth-of-type(3){border-top-color:var(--sun)}
+h2{margin:0 0 12px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.auto{display:grid;grid-template-columns:1fr 1.7fr 1fr;gap:8px}
+.chip{background:var(--bg);border:1px dashed var(--mint);border-radius:14px;padding:8px 10px;text-align:center}
+.chip:nth-child(1){border-color:var(--sun);background:color-mix(in srgb,var(--sun) 18%,var(--card))}.chip:nth-child(2){border-color:var(--sky);background:color-mix(in srgb,var(--sky) 18%,var(--card))}.chip:nth-child(3){border-color:var(--lav);background:color-mix(in srgb,var(--lav) 18%,var(--card))}.chip{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}.chip small{display:inline;font-size:1.6rem;line-height:1}.chip small.num{position:relative;display:inline-flex;align-items:flex-end;justify-content:center;width:46px;height:48px;padding-bottom:4px;box-sizing:border-box;border-radius:10px;border:2px solid var(--c);background:var(--card);color:var(--ink);font-size:1.3rem;font-weight:800;overflow:hidden}.chip small.num::before{content:"";position:absolute;left:0;right:0;top:0;height:13px;background:var(--c)}.chip small.num::after{content:"";position:absolute;top:4px;left:11px;width:5px;height:5px;border-radius:50%;background:var(--card);box-shadow:17px 0 0 var(--card)}.chip:nth-child(1) .num{--c:#e0a800}.chip:nth-child(2) .num{--c:#2a9be0}.chip b{font-size:1rem}
+.inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+label{font-size:.82rem;color:var(--sub);display:block;margin-bottom:4px}
+input{width:100%;font-size:1.4rem;font-weight:700;padding:10px 12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);text-align:center}
+#sys{border-color:color-mix(in srgb,var(--coral) 70%,var(--line))}#dia{border-color:color-mix(in srgb,var(--sky) 70%,var(--line))}#sys:focus,#dia:focus,input:focus{outline:none;border-color:var(--mint)}
+button.main{margin-top:12px;width:100%;padding:14px;border:0;border-radius:16px;background:linear-gradient(90deg,#2bbfa4,#6ec6ff);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer}
+button.main:active{transform:scale(.98)}
+.err{color:var(--high);font-size:.85rem;min-height:1.2em;margin-top:6px}
+.result{display:none;align-items:center;gap:14px;border-radius:18px;padding:14px;margin-top:12px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 12%,var(--card))}
+.result.show{display:flex}
+.result h3{margin:0;color:var(--c);font-size:1.15rem}.result p{margin:4px 0 0;font-size:.9rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.stat{background:var(--bg);border-radius:14px;padding:8px;text-align:center}.stat:nth-child(1){background:color-mix(in srgb,var(--sky) 18%,var(--card))}.stat:nth-child(2){background:color-mix(in srgb,var(--coral) 18%,var(--card))}.stat:nth-child(3){background:color-mix(in srgb,var(--sun) 22%,var(--card))}.stat small{color:var(--sub);font-size:.72rem;display:block}.stat b{font-size:1.05rem}
+.scroll{overflow-x:auto}
+.legend{display:flex;gap:14px;font-size:.8rem;color:var(--sub);margin-top:6px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:4px;border-radius:2px;margin-right:5px;vertical-align:middle}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+th{color:var(--sub);font-weight:600;text-align:center;padding:6px 4px;border-bottom:2px solid var(--line)}
+td{text-align:center;padding:8px 4px;border-bottom:1px solid var(--line)}
+.badge{padding:2px 9px;border-radius:99px;color:#fff;font-size:.75rem;font-weight:700;background:var(--c)}
+.del{background:none;border:0;color:var(--sub);cursor:pointer;font-size:1rem}
+.empty{text-align:center;color:var(--sub);padding:14px}
+.ref{font-size:.78rem;color:var(--sub);margin-top:12px;line-height:1.6}
+section.card:nth-of-type(4){border-top-color:var(--coral)}tr.r{background:color-mix(in srgb,var(--c) 12%,transparent)}body{transition:background .4s}.tips{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tip{border-radius:16px;padding:12px;font-size:.88rem}.tip h4{margin:0 0 6px;font-size:.95rem}.tip ul{margin:0;padding-left:18px}.tip.ex{background:color-mix(in srgb,var(--sun) 22%,var(--card))}.tip.food{background:color-mix(in srgb,var(--coral) 16%,var(--card))}.tipmsg{font-size:.9rem;margin:0 0 10px;font-weight:600}@media(max-width:520px){.tips{grid-template-columns:1fr}}
+.seg{display:flex;gap:8px;margin-top:12px}.seg button{flex:1;padding:10px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-size:.95rem;cursor:pointer}.seg button.on{border-color:var(--mint);background:color-mix(in srgb,var(--mint) 18%,var(--card));font-weight:700}select{width:100%;font-size:1.1rem;font-weight:700;padding:11px 12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);text-align:center}section.card:nth-of-type(5){border-top-color:var(--sky)}.nat{display:grid;grid-template-columns:1fr 1fr;gap:10px}.nat .empty{grid-column:1/-1}.nc{display:flex;align-items:center;gap:10px;padding:14px 12px;border-radius:18px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 12%,var(--card));text-align:left}.nc .fg{font-size:2.4rem;line-height:1}.nc .cn{font-size:1.25rem;font-weight:800}.nc b{color:var(--c);font-size:.9rem}
+input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9px 16px;border:0;border-radius:99px;background:var(--mint);color:#fff;font-weight:700;cursor:pointer}
+.note{font-size:.75rem;color:var(--sub);text-align:center;margin:16px 0 4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#fff"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#2bbfa4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ <div><h1>마음혈압 💗</h1><p>매일 1분, 내 혈압을 가볍게 기록해요 🌿☀️</p></div>
+ <svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+<span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
+
+<section class="card">
+ <h2><svg width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="9" width="14" height="10" rx="3" fill="#9fe5d6"/><path d="M17 12h3a2 2 0 0 1 0 4h-3M8 9V6a2 2 0 0 1 4 0v3" stroke="#2bbfa4" stroke-width="2" fill="none"/></svg>혈압 기록하기 ✍️</h2>
+ <div class="auto">
+  <div class="chip"><small id="ey" class="num">-</small><b id="cy">-</b></div>
+  <div class="chip"><small id="em" class="num">-</small><b id="cd">-</b></div>
+  <div class="chip"><small>⏰</small><b id="ct">-</b></div>
+ </div>
+ <div class="seg" id="seg"><button data-p="am">☀️ 아침</button><button data-p="pm">🌙 저녁</button></div><div class="inputs">
+  <div><label for="sys">🔺 최고혈압 (수축기)</label><input id="sys" type="number" inputmode="numeric" placeholder="120"></div>
+  <div><label for="dia">🔻 최저혈압 (이완기)</label><input id="dia" type="number" inputmode="numeric" placeholder="80"></div>
+ </div>
+ <div class="err" id="err"></div>
+ <button class="main" id="save">💚 혈압 체크하기</button>
+ <div class="result" id="res">
+  <svg id="resIcon" width="56" height="56" viewBox="0 0 56 56"></svg>
+  <div><h3 id="resT"></h3><p id="resM"></p></div>
+ </div>
+</section>
+
+<section class="card">
+ <h2><svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 18l5-6 4 3 8-10" stroke="#2bbfa4" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>혈압 그래프 📈</h2>
+ <div class="seg" id="vseg" style="margin:0 0 10px"><button data-v="all">📈 전체</button><button data-v="week">🗓️ 주간 평균</button><button data-v="month">📆 월간 평균</button></div><div class="stats" id="stats"></div>
+ <div class="scroll" id="chart"></div>
+ <div class="legend"><span><i style="background:#ff7a70"></i>최고혈압</span><span><i style="background:#6d8cf0"></i>최저혈압</span><span>점선: 정상 기준(120/80)</span><span><i style="background:#14b8a6;height:10px;opacity:.45"></i>최고 정상 구간(90~120)</span><span><i style="background:#6ec6ff;height:10px;opacity:.6"></i>최저 정상 구간(60~80)</span></div>
+</section>
+
+<section class="card">
+ <h2>🥗 건강 지키기 추천 🏃</h2><p class="tipmsg" id="tipmsg"></p><div class="tips" id="tips"></div>
+</section>
+
+<section class="card">
+ <h2>🌏 나라별 기준 비교 🧭</h2><p class="tipmsg" id="natmsg"></p><div class="nat" id="nat"></div>
+ <div class="ref">🇰🇷 한국(대한고혈압학회): 정상 &lt;120/80 · 주의 120~129/&lt;80 · 전단계 130~139 또는 80~89 · 고혈압 ≥140/90<br>🇯🇵 일본(JSH 2019 분류): 정상 &lt;120/80 · 정상고치 120~129/&lt;80 · 상승 130~139 또는 80~89 · I도 140~159 또는 90~99 · II도 160~179 또는 100~109 · III도 ≥180 또는 ≥110<br>🇺🇸 미국(ACC/AHA 2025): 정상 &lt;120/80 · 상승 120~129/&lt;80 · 1단계 130~139 또는 80~89 · 2단계 ≥140/90<br>🇪🇺 유럽(ESC 2024): 비상승 &lt;120/70 · 상승 120~139 또는 70~89 · 고혈압 ≥140/90<br>※ 병원에서 잰 진료실 혈압 기준이에요. 집에서 잰 혈압은 보통 135/85 이상을 고혈압으로 봐요.</div>
+</section>
+
+<section class="card">
+ <h2>👪 또래 평균 혈압 📊</h2>
+ <div class="inputs"><div><label for="age">나이</label><input id="age" type="number" inputmode="numeric" placeholder="40" style="font-size:1.1rem"></div><div><label for="sex">성별</label><select id="sex"><option value="m">남성 👨</option><option value="f">여성 👩</option></select></div></div>
+ <p class="tipmsg" id="agemsg" style="margin-top:10px"></p><div class="scroll"><table id="agetab" style="min-width:340px"></table></div>
+ <div class="ref">미국 NHANES(2001~2008) 기반의 대략적인 참고치로, 또래의 중간 50%가 속하는 범위예요. 한국인과 다를 수 있고, 나이가 많아도 정상 기준(120/80 미만)은 같아요. 또래 평균이 높다고 건강하다는 뜻은 아니에요.</div>
+</section>
+
+<section class="card">
+ <h2><svg width="24" height="24" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3" fill="#9fe5d6"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#2bbfa4" stroke-width="2" stroke-linecap="round"/></svg>전체 기록 📋</h2>
+ <div class="scroll"><table><thead><tr><th>연도</th><th>날짜</th><th>시간</th><th>구분</th><th>최고</th><th>최저</th><th>상태</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div style="text-align:right;margin-top:10px"><button class="more" id="more" style="display:none"></button></div>
+ <div class="ref"><b>분류 기준</b> (대한고혈압학회 기준을 단순화)<br>저혈압 90/60 미만 · 정상 120/80 미만 · 주의혈압 120~129 / 80 미만 · 고혈압 전단계 130~139 또는 80~89 · 고혈압 140/90 이상</div>
+</section>
+<p class="note">🩺 참고용 도구이며 의학적 진단을 대체하지 않아요. 걱정되는 수치나 증상은 의료진과 상담하세요.<br>기록은 이 기기의 브라우저에만 저장돼요.</p>
+</div>
+
+<script>
+const KEY="bp-records-v1";
+let data=[];
+try{data=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){data=[]}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
+const $=id=>document.getElementById(id);
+const DOW=["일","월","화","수","목","금","토"];
+const p2=n=>String(n).padStart(2,"0");
+function tick(){const d=new Date();$("cy").textContent=d.getFullYear()+"년";$("ey").textContent=String(d.getFullYear()).slice(-2);$("em").textContent=d.getMonth()+1;$("cd").textContent=(d.getMonth()+1)+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+")";$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
+tick();setInterval(tick,1000);
+
+function cls(s,d){
+ if(s>=180||d>=120)return{k:"crisis",l:"🚨 고혈압 위기",c:"var(--high)",m:"매우 높은 수치예요. 5분 안정 후 다시 재세요. 여전히 높거나 두통·흉통·시야 이상이 있으면 즉시 119나 응급실로 가세요."};
+ if(s>=140||d>=90)return{k:"high",l:"🔥 고혈압",c:"var(--high)",m:"고혈압 범위예요. 안정을 취한 뒤 재측정하고, 반복되면 병원 상담을 받아보세요."};
+ if(s>=130||d>=80)return{k:"pre",l:"⚠️ 고혈압 전단계",c:"var(--pre)",m:"조금 높아요. 짠 음식 줄이기, 걷기, 충분한 수면으로 관리하고 꾸준히 재측정해요."};
+ if(s>=120)return{k:"elev",l:"🟡 주의혈압",c:"var(--elev)",m:"살짝 높은 편이에요. 지금부터 생활습관을 챙기면 좋아요."};
+ if(s<90||d<60)return{k:"low",l:"💧 저혈압",c:"var(--low)",m:"낮은 편이에요. 천천히 일어나고 수분을 충분히 마셔요. 어지러움이 반복되면 진료를 권해요."};
+ return{k:"normal",l:"🎉 정상",c:"var(--normal)",m:"훌륭해요! 지금의 생활습관을 그대로 이어가요."};
+}
+function icon(k,c){
+ const f={normal:"M18 34q10 10 20 0",low:"M18 38q10 -6 20 0",elev:"M18 36h20",pre:"M18 38q10 -6 20 0",high:"M18 40q10 -10 20 0",crisis:"M18 40q10 -10 20 0"}[k];
+ return `<path d="M28 52C8 38 4 26 4 19a12 12 0 0 1 24-3 12 12 0 0 1 24 3c0 7-4 19-24 33z" fill="${c}"/><circle cx="21" cy="26" r="2.5" fill="#fff"/><circle cx="35" cy="26" r="2.5" fill="#fff"/><path d="${f}" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+}
+function showRes(r,s,d){
+ const e=$("res");e.style.setProperty("--c",r.c);e.classList.add("show");
+ $("resT").textContent=r.l+"  "+s+"/"+d+" mmHg";$("resM").textContent=r.m;$("resIcon").innerHTML=icon(r.k,r.c);
+}
+$("save").onclick=()=>{
+ const s=parseInt($("sys").value),d=parseInt($("dia").value);
+ if(!s||!d){$("err").textContent="최고·최저혈압을 모두 입력해 주세요.";return}
+ if(s<50||s>300||d<30||d>200){$("err").textContent="수치를 다시 확인해 주세요. (최고 50~300, 최저 30~200)";return}
+ if(s<=d){$("err").textContent="최고혈압은 최저혈압보다 커야 해요.";return}
+ $("err").textContent="";
+ data.push({t:new Date().toISOString(),s,d,p:cur});persist();
+ showRes(cls(s,d),s,d);$("sys").value="";$("dia").value="";render();
+};
+const TIPS={
+normal:{m:"지금처럼만 유지하면 돼요! 정상 혈압을 오래 지키는 방법이에요 🌈",ex:["주 3~5회, 30분 걷기·자전거 같은 유산소 운동","주 2회 가벼운 근력 운동","스트레칭·요가로 긴장 풀기 🧘"],food:["채소·과일·통곡물 중심의 식단 🥦","소금은 하루 5g 이하, 국물은 남기기","생선·견과류와 물을 충분히 💧"]},
+elev:{m:"조금만 신경 쓰면 정상으로 돌아올 수 있어요 💪",ex:["매일 30분 빠르게 걷기 🚶","엘리베이터 대신 계단 이용하기","숨을 참고 힘주는 운동은 피하기"],food:["라면·찌개 국물 등 짠 음식 줄이기","바나나·시금치처럼 칼륨이 많은 식품 🍌","술과 카페인 줄이기"]},
+pre:{m:"생활습관을 바꿔볼 좋은 시기예요. 꾸준히 재측정해요 📏",ex:["주 5회 이상, 30분 걷기·가벼운 조깅","체중 관리가 혈압에 큰 도움이 돼요","무거운 중량을 드는 운동은 피하기"],food:["저염식 실천, 가공식품·햄·젓갈 줄이기","채소·과일·저지방 유제품 늘리기 🥗","금연과 절주"]},
+high:{m:"생활습관 관리와 함께 병원 상담이 꼭 필요해요 🏥",ex:["운동 전 의사와 상담하고 가벼운 걷기부터","격한 운동·무거운 역기는 피하기","규칙적인 수면과 스트레스 관리 😴"],food:["소금 하루 5g 미만의 엄격한 저염식","라면 국물·가공육·절임류 피하기","술과 흡연은 끊는 것이 좋아요 🚭"]},
+low:{m:"몸이 어지럽지 않게 천천히 움직이고 수분을 챙겨요 🫗",ex:["앉았다 일어날 때 천천히 일어나기","가벼운 걷기·종아리 운동으로 혈액순환 🦵","오래 서 있기·뜨거운 목욕은 피하기"],food:["물 하루 1.5~2L 마시기 💧","아침을 거르지 않고 규칙적으로 식사","소금 조절은 의사와 상의 후 결정"]},
+crisis:{m:"지금은 운동보다 안정이 먼저예요. 증상이 있으면 즉시 119 🚑",ex:["지금은 운동하지 말고 편히 앉아 쉬기","5분 안정 후 다시 측정하기","두통·흉통·시야 이상이 있으면 즉시 응급실"],food:["짜고 자극적인 음식은 당분간 피하기","물을 천천히 마시며 안정 취하기","수치가 계속 높으면 바로 진료 받기"]}
+};
+function renderTips(){
+ const last=data.at(-1),r=last?cls(last.s,last.d):null,T=TIPS[r?r.k:"normal"];
+ $("tipmsg").textContent=(r?r.l:"기록 전")+" · "+T.m;
+ const ul=a=>a.map(x=>"<li>"+x+"</li>").join("");
+ $("tips").innerHTML=`<div class="tip ex"><h4>🏃 운동</h4><ul>${ul(T.ex)}</ul></div><div class="tip food"><h4>🥗 식사</h4><ul>${ul(T.food)}</ul></div>`;
+ document.body.style.background=r?`color-mix(in srgb,${r.c} 10%,var(--bg))`:"";
+}
+let cur=new Date().getHours()<15?'am':'pm',view='all',showAll=false;
+const AGE=[['20대',[110,126],[102,118],[66,80],[62,76]],['30대',[112,128],[104,120],[70,84],[66,78]],['40대',[114,132],[108,126],[72,86],[68,80]],['50대',[118,138],[114,136],[70,84],[68,80]],['60대',[120,142],[118,142],[66,80],[64,78]],['70대',[122,148],[122,148],[60,76],[58,74]],['80대+',[124,150],[124,152],[56,72],[54,70]]];
+const SC=['var(--normal)','var(--elev)','var(--pre)','var(--high)'];
+const G=[['🇰🇷','한국',(s,d)=>{const r=cls(s,d);return[{normal:0,low:0,elev:1,pre:2,high:3,crisis:3}[r.k],r.l]}],
+['🇯🇵','일본',(s,d)=>s>=180||d>=110?[3,'고혈압 III도']:s>=160||d>=100?[3,'고혈압 II도']:s>=140||d>=90?[3,'고혈압 I도']:s>=130||d>=80?[2,'상승혈압']:s>=120?[1,'정상고치혈압']:[0,'정상혈압']],
+['🇺🇸','미국',(s,d)=>s>=140||d>=90?[3,'2단계 고혈압']:s>=130||d>=80?[2,'1단계 고혈압']:s>=120?[1,'상승 혈압']:[0,'정상']],
+['🇪🇺','유럽',(s,d)=>s>=140||d>=90?[3,'고혈압']:s>=120||d>=70?[1,'상승 혈압']:[0,'비상승(정상)']]];
+function per(x){return x.p||(new Date(x.t).getHours()<15?'am':'pm')}
+function series(){
+ if(view=='all')return data.map(x=>{const t=new Date(x.t);return{...x,l1:(t.getMonth()+1)+'/'+t.getDate(),l2:(per(x)=='am'?'☀️':'🌙')+p2(t.getHours())+':'+p2(t.getMinutes())}});
+ const g={};
+ data.forEach(x=>{const t=new Date(x.t);let k,l1;
+  if(view=='week'){const m=new Date(t.getFullYear(),t.getMonth(),t.getDate());m.setDate(m.getDate()-((m.getDay()+6)%7));k=m.getTime();l1=(m.getMonth()+1)+'/'+m.getDate()+'~'}
+  else{k=t.getFullYear()*100+t.getMonth();l1=t.getFullYear()+'.'+p2(t.getMonth()+1)}
+  const o=g[k]=g[k]||{k,l1,s:0,d:0,n:0,t:x.t};o.s+=x.s;o.d+=x.d;o.n++});
+ return Object.values(g).sort((a,b)=>a.k-b.k).map(o=>({t:o.t,s:Math.round(o.s/o.n),d:Math.round(o.d/o.n),l1:o.l1,l2:'평균 '+o.n+'회'}));
+}
+function renderNat(){
+ const x=data.at(-1);
+ $('natmsg').textContent=x?`최근 기록 ${x.s}/${x.d} mmHg를 각 나라 기준으로 보면?`:'';
+ $('nat').innerHTML=x?G.map(([f,n,fn])=>{const[v,l]=fn(x.s,x.d);return`<div class='nc' style='--c:${SC[v]}'><span class='fg'>${f}</span><div><div class='cn'>${n}</div><b>${l}</b></div></div>`}).join(''):'<div class="empty">🌍 기록하면 나라별 분류를 비교해 드려요</div>';
+}
+function renderAge(){
+ const age=parseInt($('age').value),sx=$('sex').value==='f'?1:0,idx=age>=20?Math.min(6,Math.floor(age/10)-2):-1;
+ $('agetab').innerHTML='<tr><th>연령대</th><th>최고혈압</th><th>최저혈압</th></tr>'+AGE.map((a,i)=>`<tr${i==idx?" class='r' style='--c:var(--mint)'":''}><td>${i==idx?'👉 ':''}${a[0]}</td><td>${a[1+sx].join(' ~ ')}</td><td>${a[3+sx].join(' ~ ')}</td></tr>`).join('');
+ let m='나이를 입력하면 내 또래 범위가 표시돼요 🎈';
+ if(age&&idx<0)m='20세 이상 성인 기준이에요';
+ else if(idx>=0){const a=AGE[idx];m=`${a[0]} ${sx?'여성':'남성'} 또래의 중간 50% 범위예요.`;
+  if(data.length){const av=k=>Math.round(data.reduce((t,x)=>t+x[k],0)/data.length),S=av('s'),D=av('d'),c=(v,r)=>v<r[0]?'낮은 편 ⬇️':v>r[1]?'높은 편 ⬆️':'범위 안 ✅';
+   m+=` 내 평균 ${S}/${D} → 최고 ${c(S,a[1+sx])}, 최저 ${c(D,a[3+sx])}`}}
+ $('agemsg').textContent=m;
+}
+function syncSeg(){document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.p==cur));document.querySelectorAll('#vseg button').forEach(b=>b.classList.toggle('on',b.dataset.v==view))}
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{cur=b.dataset.p;syncSeg()});
+document.querySelectorAll('#vseg button').forEach(b=>b.onclick=()=>{view=b.dataset.v;syncSeg();drawChart()});
+syncSeg();
+try{const p=JSON.parse(localStorage.getItem('bp-prof')||'{}');if(p.age)$('age').value=p.age;if(p.sex)$('sex').value=p.sex}catch(e){}
+$('age').oninput=$('sex').onchange=()=>{try{localStorage.setItem('bp-prof',JSON.stringify({age:$('age').value,sex:$('sex').value}))}catch(e){}renderAge()};
+function renderMore(){const b=$('more');b.style.display=data.length>10?'inline-block':'none';b.textContent=showAll?'최근 10개만 보기':'전체기록 보기 ('+data.length+')'}
+$('more').onclick=()=>{showAll=!showAll;render()};
+function del(i){data.splice(i,1);persist();render()}
+function render(){
+ // stats
+ if(data.length){
+  const av=k=>Math.round(data.reduce((a,x)=>a+x[k],0)/data.length);
+  $("stats").innerHTML=`<div class="stat"><small>📝 기록 횟수</small><b>${data.length}회</b></div><div class="stat"><small>📊 평균 최고/최저</small><b>${av("s")}/${av("d")}</b></div><div class="stat"><small>💡 최근 상태</small><b style="color:${cls(data.at(-1).s,data.at(-1).d).c}">${cls(data.at(-1).s,data.at(-1).d).l}</b></div>`;
+ }else $("stats").innerHTML="";
+ // table
+ $("rows").innerHTML=data.length?[...data].map((x,i)=>[x,i]).reverse().slice(0,showAll?data.length:10).map(([x,i])=>{
+  const t=new Date(x.t),r=cls(x.s,x.d);
+  return `<tr class="r" style="--c:${r.c}"><td>${t.getFullYear()}년</td><td>${t.getMonth()+1}/${t.getDate()} (${DOW[t.getDay()]})</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td>${per(x)=='am'?'☀️ 아침':'🌙 저녁'}</td><td><b>${x.s}</b></td><td><b>${x.d}</b></td><td><span class="badge" style="--c:${r.c}">${r.l}</span></td><td><button class="del" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="8" class="empty">아직 기록이 없어요</td></tr>`;
+ document.querySelectorAll(".del").forEach(b=>b.onclick=()=>del(+b.dataset.i));
+ renderTips();renderNat();renderAge();renderMore();
+ drawChart();
+}
+function drawChart(){
+ const el=$("chart"),data=series(),n=data.length;
+ if(!n){el.innerHTML=`<div class="empty"><svg width="120" height="90" viewBox="0 0 120 90"><circle cx="60" cy="48" r="38" fill="var(--mint2)"/><path d="M60 72C36 56 32 44 32 38a12 12 0 0 1 28-3 12 12 0 0 1 28 3c0 6-4 18-28 34z" fill="var(--mint)"/><path d="M38 48h12l4-8 6 14 4-6h16" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="102" cy="14" r="5" fill="var(--mint2)"/><circle cx="14" cy="22" r="4" fill="var(--mint2)"/></svg><div>🌱 첫 혈압을 기록하면 그래프가 나타나요</div></div>`;return}
+ const W=Math.max(600,n*58+70),H=270,pl=38,pr=18,pt=16,pb=44;
+ const lo=Math.floor((Math.min(...data.map(x=>x.d),60)-10)/10)*10,hi=Math.ceil((Math.max(...data.map(x=>x.s),150)+10)/10)*10;
+ const X=i=>n==1?(W+pl-pr)/2:pl+i*(W-pl-pr)/(n-1),Y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo);
+ let g="";const band=(a,b,c)=>{const t=Math.max(a,lo),u=Math.min(b,hi);return t<u?`<rect x="${pl}" y="${Y(u)}" width="${W-pl-pr}" height="${Y(t)-Y(u)}" fill="${c}" opacity=".18"/>`:""};g+=band(90,120,"#14b8a6")+band(60,80,"#6ec6ff");
+ for(let v=lo;v<=hi;v+=20)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--sub)">${v}</text>`;
+ [120,80].forEach(v=>{if(v>=lo&&v<=hi)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--mint)" stroke-dasharray="5 4" opacity=".8"/>`});
+ const line=(k,c)=>`<polyline points="${data.map((x,i)=>X(i)+","+Y(x[k])).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`;
+ g+=line("s","#ff7a70")+line("d","#6d8cf0");
+ data.forEach((x,i)=>{const t=new Date(x.t),r=cls(x.s,x.d);
+  g+=`<circle cx="${X(i)}" cy="${Y(x.s)}" r="5" fill="${r.c}" stroke="var(--card)" stroke-width="2"><title>${x.s}/${x.d} ${r.l}</title></circle><circle cx="${X(i)}" cy="${Y(x.d)}" r="4" fill="#6d8cf0" stroke="var(--card)" stroke-width="2"></circle>`;
+  g+=`<text x="${X(i)}" y="${Y(x.s)-9}" text-anchor="middle" font-size="10" fill="var(--ink)">${x.s}</text><text x="${X(i)}" y="${Y(x.d)+17}" text-anchor="middle" font-size="10" fill="var(--ink)">${x.d}</text>`;
+  g+=`<text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="10" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="9" fill="var(--sub)">${x.l2}</text>`});
+ el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="혈압 변화 그래프">${g}</svg>`;
+ el.scrollLeft=el.scrollWidth;
+}
+render();
+</script>
+</body>
+</html>
