@@ -46,15 +46,25 @@ td{text-align:center;padding:8px 4px;border-bottom:1px solid var(--line)}
 section.card:nth-of-type(4){border-top-color:var(--coral)}tr.r{background:color-mix(in srgb,var(--c) 12%,transparent)}body{transition:background .4s}.tips{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tip{border-radius:16px;padding:12px;font-size:.88rem}.tip h4{margin:0 0 6px;font-size:.95rem}.tip ul{margin:0;padding-left:18px}.tip.ex{background:color-mix(in srgb,var(--sun) 22%,var(--card))}.tip.food{background:color-mix(in srgb,var(--coral) 16%,var(--card))}.tipmsg{font-size:.9rem;margin:0 0 10px;font-weight:600}@media(max-width:520px){.tips{grid-template-columns:1fr}}
 .seg{display:flex;gap:8px;margin-top:12px}.seg button{flex:1;padding:10px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-size:.95rem;cursor:pointer}.seg button.on{border-color:var(--mint);background:color-mix(in srgb,var(--mint) 18%,var(--card));font-weight:700}select{width:100%;font-size:1.1rem;font-weight:700;padding:11px 12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);text-align:center}section.card:nth-of-type(5){border-top-color:var(--sky)}.nat{display:grid;grid-template-columns:1fr 1fr;gap:10px}.nat .empty{grid-column:1/-1}.nc{display:flex;align-items:center;gap:10px;padding:14px 12px;border-radius:18px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 12%,var(--card));text-align:left}.nc .fg{font-size:2.4rem;line-height:1}.nc .cn{font-size:1.25rem;font-weight:800}.nc b{color:var(--c);font-size:.9rem}
 input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9px 16px;border:0;border-radius:99px;background:var(--mint);color:#fff;font-weight:700;cursor:pointer}
+.login{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}.lbox{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--mint);border-radius:24px;padding:24px;width:100%;max-width:360px;text-align:center}.lbox input{font-size:1.05rem;margin-top:10px;text-align:left}.lo{margin-left:auto;position:relative;z-index:2;background:rgba(255,255,255,.28);color:#fff;border:0;border-radius:99px;padding:6px 12px;font-size:.8rem;cursor:pointer;align-self:flex-start}
 .note{font-size:.75rem;color:var(--sub);text-align:center;margin:16px 0 4px}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div id="login" class="login"><div class="lbox">
+ <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#2bbfa4"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ <h1 style="margin:8px 0 2px;font-size:1.4rem">마음혈압 💗</h1>
+ <p style="margin:0 0 8px;color:var(--sub);font-size:.9rem">나만의 혈압 기록장 🔒 로그인해 주세요</p>
+ <input id="lemail" type="email" autocomplete="username" placeholder="이메일">
+ <input id="lpw" type="password" autocomplete="current-password" placeholder="암호">
+ <div class="err" id="lmsg"></div>
+ <button class="main" id="loginBtn">🔑 로그인</button>
+</div></div>
+<div class="wrap" id="appwrap" style="display:none">
 <header>
  <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#fff"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#2bbfa4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
  <div><h1>마음혈압 💗</h1><p>매일 1분, 내 혈압을 가볍게 기록해요 🌿☀️</p></div>
- <svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+ <button id="logout" class="lo">🔒 로그아웃</button><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
 <span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
 
 <section class="card">
@@ -104,14 +114,27 @@ input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9p
  <div class="scroll"><table><thead><tr><th>연도</th><th>날짜</th><th>시간</th><th>구분</th><th>최고</th><th>최저</th><th>상태</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div style="text-align:right;margin-top:10px"><button class="more" id="more" style="display:none"></button></div>
  <div class="ref"><b>분류 기준</b> (대한고혈압학회 기준을 단순화)<br>저혈압 90/60 미만 · 정상 120/80 미만 · 주의혈압 120~129 / 80 미만 · 고혈압 전단계 130~139 또는 80~89 · 고혈압 140/90 이상</div>
 </section>
-<p class="note">🩺 참고용 도구이며 의학적 진단을 대체하지 않아요. 걱정되는 수치나 증상은 의료진과 상담하세요.<br>기록은 이 기기의 브라우저에만 저장돼요.</p>
+<p class="note">🩺 참고용 도구이며 의학적 진단을 대체하지 않아요. 걱정되는 수치나 증상은 의료진과 상담하세요.<br>기록은 내 계정에 안전하게 저장되고, 로그인한 모든 기기에서 실시간으로 이어져요.</p>
 </div>
 
-<script>
-const KEY="bp-records-v1";
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {getFirestore,collection,addDoc,deleteDoc,doc,onSnapshot,query,orderBy} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDm0u_A0NuqQlMV9dwX381KI7l5X3XrZlI",
+  authDomain: "blood-pressure-f5915.firebaseapp.com",
+  projectId: "blood-pressure-f5915",
+  storageBucket: "blood-pressure-f5915.firebasestorage.app",
+  messagingSenderId: "357427223846",
+  appId: "1:357427223846:web:61fbea2d97a32b3185b5e7"
+};
+
+const NOCFG=firebaseConfig.apiKey.startsWith("여기에");
+let app,auth,db,unsub=null;
+if(!NOCFG){app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app)}
 let data=[];
-try{data=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){data=[]}
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
 const $=id=>document.getElementById(id);
 const DOW=["일","월","화","수","목","금","토"];
 const p2=n=>String(n).padStart(2,"0");
@@ -134,14 +157,17 @@ function showRes(r,s,d){
  const e=$("res");e.style.setProperty("--c",r.c);e.classList.add("show");
  $("resT").textContent=r.l+"  "+s+"/"+d+" mmHg";$("resM").textContent=r.m;$("resIcon").innerHTML=icon(r.k,r.c);
 }
-$("save").onclick=()=>{
+$("save").onclick=async()=>{
  const s=parseInt($("sys").value),d=parseInt($("dia").value);
  if(!s||!d){$("err").textContent="최고·최저혈압을 모두 입력해 주세요.";return}
  if(s<50||s>300||d<30||d>200){$("err").textContent="수치를 다시 확인해 주세요. (최고 50~300, 최저 30~200)";return}
  if(s<=d){$("err").textContent="최고혈압은 최저혈압보다 커야 해요.";return}
  $("err").textContent="";
- data.push({t:new Date().toISOString(),s,d,p:cur});persist();
- showRes(cls(s,d),s,d);$("sys").value="";$("dia").value="";render();
+ $("save").disabled=true;
+ try{await addDoc(collection(db,"bp"),{t:new Date().toISOString(),s,d,p:cur,uid:auth.currentUser.uid})}
+ catch(e){$("err").textContent="저장하지 못했어요. 인터넷 연결과 로그인 상태를 확인해 주세요.";$("save").disabled=false;return}
+ $("save").disabled=false;
+ showRes(cls(s,d),s,d);$("sys").value="";$("dia").value="";
 };
 const TIPS={
 normal:{m:"지금처럼만 유지하면 돼요! 정상 혈압을 오래 지키는 방법이에요 🌈",ex:["주 3~5회, 30분 걷기·자전거 같은 유산소 운동","주 2회 가벼운 근력 운동","스트레칭·요가로 긴장 풀기 🧘"],food:["채소·과일·통곡물 중심의 식단 🥦","소금은 하루 5g 이하, 국물은 남기기","생선·견과류와 물을 충분히 💧"]},
@@ -198,7 +224,7 @@ try{const p=JSON.parse(localStorage.getItem('bp-prof')||'{}');if(p.age)$('age').
 $('age').oninput=$('sex').onchange=()=>{try{localStorage.setItem('bp-prof',JSON.stringify({age:$('age').value,sex:$('sex').value}))}catch(e){}renderAge()};
 function renderMore(){const b=$('more');b.style.display=data.length>10?'inline-block':'none';b.textContent=showAll?'최근 10개만 보기':'전체기록 보기 ('+data.length+')'}
 $('more').onclick=()=>{showAll=!showAll;render()};
-function del(i){data.splice(i,1);persist();render()}
+async function del(i){if(!confirm("이 기록을 삭제할까요?"))return;try{await deleteDoc(doc(db,"bp",data[i].id))}catch(e){alert("삭제하지 못했어요.")}}
 function render(){
  // stats
  if(data.length){
@@ -232,6 +258,24 @@ function drawChart(){
  el.scrollLeft=el.scrollWidth;
 }
 render();
+if(NOCFG){$("lmsg").textContent="⚠️ 코드 위쪽의 firebaseConfig에 Firebase 설정값을 붙여넣어 주세요."}
+else onAuthStateChanged(auth,u=>{
+ if(unsub){unsub();unsub=null}
+ $("login").style.display=u?"none":"flex";
+ $("appwrap").style.display=u?"":"none";
+ if(u){unsub=onSnapshot(query(collection(db,"bp"),orderBy("t")),snap=>{data=snap.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{$("err").textContent="데이터를 불러오지 못했어요. Firestore 규칙의 UID를 확인해 주세요."})}
+ else{data=[];render()}
+});
+$("loginBtn").onclick=async()=>{
+ if(NOCFG)return;
+ const e=$("lemail").value.trim(),p=$("lpw").value;
+ if(!e||!p){$("lmsg").textContent="이메일과 암호를 입력해 주세요.";return}
+ $("lmsg").textContent="로그인 중...";
+ try{await signInWithEmailAndPassword(auth,e,p);$("lpw").value="";$("lmsg").textContent=""}
+ catch(x){const c=x.code;$("lmsg").textContent=(c==="auth/invalid-credential"||c==="auth/wrong-password"||c==="auth/user-not-found"||c==="auth/invalid-email")?"이메일 또는 암호가 맞지 않아요.":c==="auth/too-many-requests"?"시도가 너무 많아요. 잠시 뒤 다시 해 주세요.":"로그인하지 못했어요. firebaseConfig 설정을 확인해 주세요."}
+};
+$("lpw").onkeydown=ev=>{if(ev.key==="Enter")$("loginBtn").click()};
+$("logout").onclick=()=>{if(auth)signOut(auth)};
 </script>
 </body>
 </html>
