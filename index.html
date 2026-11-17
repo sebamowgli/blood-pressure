@@ -18,20 +18,14 @@ header h1{margin:0;font-size:1.5rem}header p{margin:2px 0 0;opacity:.95;font-siz
 .card{background:var(--card);border-radius:20px;padding:18px;margin-top:14px;border:1px solid var(--line);border-top:5px solid var(--mint)}
 section.card:nth-of-type(2){border-top-color:var(--lav)}section.card:nth-of-type(3){border-top-color:var(--sun)}
 h2{margin:0 0 12px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
-.auto{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px}
-.chip{background:var(--bg);border:1px dashed var(--mint);border-radius:14px;padding:8px 6px;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
-.chip:nth-child(1){border-color:var(--sun);background:color-mix(in srgb,var(--sun) 18%,var(--card))}.chip:nth-child(2){border-color:var(--sky);background:color-mix(in srgb,var(--sky) 18%,var(--card))}.chip:nth-child(3){border-color:var(--lav);background:color-mix(in srgb,var(--lav) 18%,var(--card))}
-.chip small{display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;width:32px;height:32px;line-height:1}
-.chip small.num{position:relative;display:inline-flex;align-items:flex-end;justify-content:center;width:42px;height:42px;padding-bottom:4px;box-sizing:border-box;border-radius:10px;border:2px solid var(--c);background:var(--card);color:var(--ink);font-size:1.1rem;font-weight:800;overflow:hidden}
-.chip small.num::before{content:"";position:absolute;left:0;right:0;top:0;height:11px;background:var(--c)}
-.chip small.num::after{content:"";position:absolute;top:4px;left:9px;width:4px;height:4px;border-radius:50%;background:var(--card);box-shadow:15px 0 0 var(--card)}
-.chip:nth-child(1) .num{--c:#e0a800}.chip:nth-child(2) .num{--c:#2a9be0}
-.chip b{font-size:0.9rem}
+.auto{display:grid;grid-template-columns:1fr 1.7fr 1fr;gap:8px}
+.chip{background:var(--bg);border:1px dashed var(--mint);border-radius:14px;padding:8px 10px;text-align:center}
+.chip:nth-child(1){border-color:var(--sun);background:color-mix(in srgb,var(--sun) 18%,var(--card))}.chip:nth-child(2){border-color:var(--sky);background:color-mix(in srgb,var(--sky) 18%,var(--card))}.chip:nth-child(3){border-color:var(--lav);background:color-mix(in srgb,var(--lav) 18%,var(--card))}.chip{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}.chip small{display:inline;font-size:1.6rem;line-height:1}.chip small.num{position:relative;display:inline-flex;align-items:flex-end;justify-content:center;width:46px;height:48px;padding-bottom:4px;box-sizing:border-box;border-radius:10px;border:2px solid var(--c);background:var(--card);color:var(--ink);font-size:1.3rem;font-weight:800;overflow:hidden}.chip small.num::before{content:"";position:absolute;left:0;right:0;top:0;height:13px;background:var(--c)}.chip small.num::after{content:"";position:absolute;top:4px;left:11px;width:5px;height:5px;border-radius:50%;background:var(--card);box-shadow:17px 0 0 var(--card)}.chip:nth-child(1) .num{--c:#e0a800}.chip:nth-child(2) .num{--c:#2a9be0}.chip b{font-size:1rem}
 .inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 label{font-size:.82rem;color:var(--sub);display:block;margin-bottom:4px}
 input{width:100%;font-size:1.4rem;font-weight:700;padding:10px 12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);text-align:center}
 #sys{border-color:color-mix(in srgb,var(--coral) 70%,var(--line))}#dia{border-color:color-mix(in srgb,var(--sky) 70%,var(--line))}#sys:focus,#dia:focus,input:focus{outline:none;border-color:var(--mint)}
-button.main{margin-top:0;width:100%;height:100%;min-height:54px;padding:10px;border:0;border-radius:16px;background:linear-gradient(90deg,#2bbfa4,#6ec6ff);color:#fff;font-size:1rem;font-weight:700;cursor:pointer}
+button.main{margin-top:12px;width:100%;padding:14px;border:0;border-radius:16px;background:linear-gradient(90deg,#2bbfa4,#6ec6ff);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer}
 button.main:active{transform:scale(.98)}
 .err{color:var(--high);font-size:.85rem;min-height:1.2em;margin-top:6px}
 .result{display:none;align-items:center;gap:14px;border-radius:18px;padding:14px;margin-top:12px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 12%,var(--card))}
@@ -65,7 +59,7 @@ input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9p
  <input id="lemail" type="email" autocomplete="username" placeholder="이메일">
  <input id="lpw" type="password" autocomplete="current-password" placeholder="암호">
  <div class="err" id="lmsg"></div>
- <button class="main" id="loginBtn" style="width:100%;margin-top:10px;">🔑 로그인</button>
+ <button class="main" id="loginBtn">🔑 로그인</button>
 </div></div>
 <div class="wrap" id="appwrap" style="display:none">
 <header>
@@ -81,13 +75,12 @@ input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9p
   <div class="chip"><small id="em" class="num">-</small><b id="cd">-</b></div>
   <div class="chip"><small>⏰</small><b id="ct">-</b></div>
  </div>
- <div class="seg" id="seg"><button data-p="am">☀️ 아침</button><button data-p="pm">🌙 저녁</button></div>
- <div class="inputs" style="grid-template-columns: 1fr 1fr 1fr; align-items: end;">
-  <div><label for="sys">🔺 최고 (수축기)</label><input id="sys" type="number" inputmode="numeric" placeholder="120"></div>
-  <div><label for="dia">🔻 최저 (이완기)</label><input id="dia" type="number" inputmode="numeric" placeholder="80"></div>
-  <div><button class="main" id="save">💚 혈압 체크</button></div>
+ <div class="seg" id="seg"><button data-p="am">☀️ 아침</button><button data-p="pm">🌙 저녁</button></div><div class="inputs">
+  <div><label for="sys">🔺 최고혈압 (수축기)</label><input id="sys" type="number" inputmode="numeric" placeholder="120"></div>
+  <div><label for="dia">🔻 최저혈압 (이완기)</label><input id="dia" type="number" inputmode="numeric" placeholder="80"></div>
  </div>
  <div class="err" id="err"></div>
+ <button class="main" id="save">💚 혈압 체크하기</button>
  <div class="result" id="res">
   <svg id="resIcon" width="56" height="56" viewBox="0 0 56 56"></svg>
   <div><h3 id="resT"></h3><p id="resM"></p></div>
@@ -124,22 +117,15 @@ input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9p
 </section>
 <section class="card">
  <h2>⚖️ 몸무게 기록하기 🍎</h2>
- <div class="auto">
-  <div class="chip"><small id="wey" class="num">-</small><b id="wcy">-</b></div>
-  <div class="chip"><small id="wem" class="num">-</small><b id="wcd">-</b></div>
-  <div class="chip"><small>⏰</small><b id="wt">-</b></div>
- </div>
- <div class="seg" id="wseg_time"><button data-p="am">☀️ 아침</button><button data-p="pm">🌙 저녁</button></div>
- <div class="inputs" style="grid-template-columns: 2fr 1fr; align-items: end;">
-  <div><label for="wkg">몸무게 (kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div>
-  <div><button class="main" id="wsave">💚 몸무게 체크</button></div>
- </div>
+ <div class="auto" style="grid-template-columns:1fr 1fr"><div class="chip"><small>📅</small><b id="wd">-</b></div><div class="chip"><small>⏰</small><b id="wt">-</b></div></div>
+ <div class="inputs" style="grid-template-columns:1fr"><div><label for="wkg">몸무게 (kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div></div>
  <div class="err" id="werr"></div>
+ <button class="main" id="wsave">💚 몸무게 기록하기</button>
  <p class="tipmsg" id="wmsg" style="margin:10px 0 0"></p>
 </section>
 <section class="card">
  <h2>📋 몸무게 전체 기록</h2>
- <div class="scroll"><table style="min-width:440px"><thead><tr><th>연도</th><th>날짜</th><th>시간</th><th>구분</th><th>몸무게</th><th>변화</th><th></th></tr></thead><tbody id="wrows"></tbody></table></div>
+ <div class="scroll"><table style="min-width:440px"><thead><tr><th>연도</th><th>날짜</th><th>시간</th><th>몸무게</th><th>변화</th><th></th></tr></thead><tbody id="wrows"></tbody></table></div>
  <div style="text-align:right;margin-top:10px"><button class="more" id="wmore" style="display:none"></button></div>
 </section>
 <section class="card">
@@ -156,6 +142,7 @@ import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase
 import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import {getFirestore,collection,addDoc,deleteDoc,doc,onSnapshot,query,orderBy} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
+// 설정값은 같은 폴더의 firebase-config.js 파일에 있어요 (index.html을 새로 올려도 설정이 지워지지 않아요)
 let firebaseConfig={apiKey:"여기에_붙여넣기"};
 try{({firebaseConfig}=await import("./firebase-config.js"))}catch(e){}
 
@@ -166,29 +153,7 @@ let data=[],wdata=[],wview="all",wShowAll=false;
 const $=id=>document.getElementById(id);
 const DOW=["일","월","화","수","목","금","토"];
 const p2=n=>String(n).padStart(2,"0");
-
-function tick(){
- const d=new Date();
- const yrStr = d.getFullYear()+"년";
- const yrShort = String(d.getFullYear()).slice(-2);
- const mthNum = d.getMonth()+1;
- const dateStr = mthNum+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+";)";
- const timeStr = p2(d.getHours())+":"+p2(d.getMinutes());
-
- // 혈압 카드
- $("cy").textContent = yrStr;
- $("ey").textContent = yrShort;
- $("em").textContent = mthNum;
- $("cd").textContent = (d.getMonth()+1)+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+";)";
- $("ct").textContent = timeStr;
-
- // 몸무게 카드
- $("wcy").textContent = yrStr;
- $("wey").textContent = yrShort;
- $("wem").textContent = mthNum;
- $("wcd").textContent = (d.getMonth()+1)+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+";)";
- $("wt").textContent = timeStr;
-}
+function tick(){const d=new Date();$("cy").textContent=d.getFullYear()+"년";$("ey").textContent=String(d.getFullYear()).slice(-2);$("em").textContent=d.getMonth()+1;$("wd").textContent=(d.getMonth()+1)+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+")";$("wt").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").textContent=(d.getMonth()+1)+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+")";$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
 tick();setInterval(tick,1000);
 
 function cls(s,d){
@@ -207,18 +172,6 @@ function showRes(r,s,d){
  const e=$("res");e.style.setProperty("--c",r.c);e.classList.add("show");
  $("resT").textContent=r.l+"  "+s+"/"+d+" mmHg";$("resM").textContent=r.m;$("resIcon").innerHTML=icon(r.k,r.c);
 }
-
-let cur=new Date().getHours()<15?'am':'pm';
-let wcur=new Date().getHours()<15?'am':'pm';
-
-function updateAutoSeg() {
- const h = new Date().getHours();
- cur = h < 15 ? 'am' : 'pm';
- wcur = h < 15 ? 'am' : 'pm';
- syncSeg();
-}
-updateAutoSeg();
-
 $("save").onclick=async()=>{
  const s=parseInt($("sys").value),d=parseInt($("dia").value);
  if(!s||!d){$("err").textContent="최고·최저혈압을 모두 입력해 주세요.";return}
@@ -231,9 +184,8 @@ $("save").onclick=async()=>{
  $("save").disabled=false;
  showRes(cls(s,d),s,d);$("sys").value="";$("dia").value="";
 };
-
 const TIPS={
-normal:{m:"지금처럼만 유지하면 돼요! 정상 혈압을 오래 지키는 방법이에요 🌈",ex:["주 3~5회, 30분 걷기·자전거 같은 유산소 운동","주 2회 가벼운 근력 운동","스트레칭·요가로 긴장 풀기 🧘"],food:[,"채소·과일·통곡물 중심의 식단 🥦","소금은 하루 5g 이하, 국물은 남기기","생선·견과류와 물을 충분히 💧"]},
+normal:{m:"지금처럼만 유지하면 돼요! 정상 혈압을 오래 지키는 방법이에요 🌈",ex:["주 3~5회, 30분 걷기·자전거 같은 유산소 운동","주 2회 가벼운 근력 운동","스트레칭·요가로 긴장 풀기 🧘"],food:["채소·과일·통곡물 중심의 식단 🥦","소금은 하루 5g 이하, 국물은 남기기","생선·견과류와 물을 충분히 💧"]},
 elev:{m:"조금만 신경 쓰면 정상으로 돌아올 수 있어요 💪",ex:["매일 30분 빠르게 걷기 🚶","엘리베이터 대신 계단 이용하기","숨을 참고 힘주는 운동은 피하기"],food:["라면·찌개 국물 등 짠 음식 줄이기","바나나·시금치처럼 칼륨이 많은 식품 🍌","술과 카페인 줄이기"]},
 pre:{m:"생활습관을 바꿔볼 좋은 시기예요. 꾸준히 재측정해요 📏",ex:["주 5회 이상, 30분 걷기·가벼운 조깅","체중 관리가 혈압에 큰 도움이 돼요","무거운 중량을 드는 운동은 피하기"],food:["저염식 실천, 가공식품·햄·젓갈 줄이기","채소·과일·저지방 유제품 늘리기 🥗","금연과 절주"]},
 high:{m:"생활습관 관리와 함께 병원 상담이 꼭 필요해요 🏥",ex:["운동 전 의사와 상담하고 가벼운 걷기부터","격한 운동·무거운 역기는 피하기","규칙적인 수면과 스트레스 관리 😴"],food:["소금 하루 5g 미만의 엄격한 저염식","라면 국물·가공육·절임류 피하기","술과 흡연은 끊는 것이 좋아요 🚭"]},
@@ -247,7 +199,7 @@ function renderTips(){
  $("tips").innerHTML=`<div class="tip ex"><h4>🏃 운동</h4><ul>${ul(T.ex)}</ul></div><div class="tip food"><h4>🥗 식사</h4><ul>${ul(T.food)}</ul></div>`;
  document.body.style.background=r?`color-mix(in srgb,${r.c} 10%,var(--bg))`:"";
 }
-let view='all',showAll=false;
+let cur=new Date().getHours()<15?'am':'pm',view='all',showAll=false;
 const AGE=[['20대',[110,126],[102,118],[66,80],[62,76]],['30대',[112,128],[104,120],[70,84],[66,78]],['40대',[114,132],[108,126],[72,86],[68,80]],['50대',[118,138],[114,136],[70,84],[68,80]],['60대',[120,142],[118,142],[66,80],[64,78]],['70대',[122,148],[122,148],[60,76],[58,74]],['80대+',[124,150],[124,152],[56,72],[54,70]]];
 const SC=['var(--normal)','var(--elev)','var(--pre)','var(--high)'];
 const G=[['🇰🇷','한국',(s,d)=>{const r=cls(s,d);return[{normal:0,low:0,elev:1,pre:2,high:3,crisis:3}[r.k],r.l]}],
@@ -279,23 +231,17 @@ function renderAge(){
    m+=` 내 평균 ${S}/${D} → 최고 ${c(S,a[1+sx])}, 최저 ${c(D,a[3+sx])}`}}
  $('agemsg').textContent=m;
 }
-function syncSeg(){
- document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.p==cur));
- document.querySelectorAll('#wseg_time button').forEach(b=>b.classList.toggle('on',b.dataset.p==wcur));
- document.querySelectorAll('#vseg button').forEach(b=>b.classList.toggle('on',b.dataset.v==view));
-}
+function syncSeg(){document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.p==cur));document.querySelectorAll('#vseg button').forEach(b=>b.classList.toggle('on',b.dataset.v==view))}
 document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{cur=b.dataset.p;syncSeg()});
-document.querySelectorAll('#wseg_time button').forEach(b=>b.onclick=()=>{wcur=b.dataset.p;syncSeg()});
 document.querySelectorAll('#vseg button').forEach(b=>b.onclick=()=>{view=b.dataset.v;syncSeg();drawChart()});
 syncSeg();
-
 try{const p=JSON.parse(localStorage.getItem('bp-prof')||'{}');if(p.age)$('age').value=p.age;if(p.sex)$('sex').value=p.sex}catch(e){}
 $('age').oninput=$('sex').onchange=()=>{try{localStorage.setItem('bp-prof',JSON.stringify({age:$('age').value,sex:$('sex').value}))}catch(e){}renderAge()};
 function renderMore(){const b=$('more');b.style.display=data.length>10?'inline-block':'none';b.textContent=showAll?'최근 10개만 보기':'전체기록 보기 ('+data.length+')'}
 $('more').onclick=()=>{showAll=!showAll;render()};
 const fmt=v=>{v=Math.round(v*10)/10;return (v>0?"+":"")+v};
 function wseries(){
- if(wview==="all")return wdata.map(x=>{const t=new Date(x.t);return{t:x.t,w:x.w,l1:(t.getMonth()+1)+"/"+t.getDate(),l2:(per(x)=='am'?'☀️':'🌙')+p2(t.getHours())+":"+p2(t.getMinutes())}});
+ if(wview==="all")return wdata.map(x=>{const t=new Date(x.t);return{t:x.t,w:x.w,l1:(t.getMonth()+1)+"/"+t.getDate(),l2:p2(t.getHours())+":"+p2(t.getMinutes())}});
  const g={};
  wdata.forEach(x=>{const t=new Date(x.t);let k,l1;
   if(wview==="week"){const m=new Date(t.getFullYear(),t.getMonth(),t.getDate());m.setDate(m.getDate()-((m.getDay()+6)%7));k=m.getTime();l1=(m.getMonth()+1)+"/"+m.getDate()+"~"}
@@ -320,38 +266,36 @@ function renderW(){
  const n=wdata.length,last=wdata[n-1],first=wdata[0];
  $("wstats").innerHTML=n?`<div class="stat"><small>📝 기록 횟수</small><b>${n}회</b></div><div class="stat"><small>⚖️ 최근 몸무게</small><b>${last.w}kg</b></div><div class="stat"><small>📊 처음 대비</small><b>${n>1?fmt(last.w-first.w)+"kg":"-"}</b></div>`:"";
  $("wrows").innerHTML=n?[...wdata].map((x,i)=>[x,i]).reverse().slice(0,wShowAll?n:10).map(([x,i])=>{const t=new Date(x.t),df=i?Math.round((x.w-wdata[i-1].w)*10)/10:null;
-  return `<tr><td>${t.getFullYear()}년</td><td>${t.getMonth()+1}/${t.getDate()} (${DOW[t.getDay()]})</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td>${per(x)=='am'?'☀️ 아침':'🌙 저녁'}</td><td><b>${x.w} kg</b></td><td>${df===null?"-":fmt(df)+(df>0?" ⬆️":df<0?" ⬇️":" ➖")}</td><td><button class="wdel" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="7" class="empty">아직 기록이 없어요</td></tr>`;
+  return `<tr><td>${t.getFullYear()}년</td><td>${t.getMonth()+1}/${t.getDate()} (${DOW[t.getDay()]})</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td><b>${x.w} kg</b></td><td>${df===null?"-":fmt(df)+(df>0?" ⬆️":df<0?" ⬇️":" ➖")}</td><td><button class="wdel" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="6" class="empty">아직 기록이 없어요</td></tr>`;
  document.querySelectorAll(".wdel").forEach(b=>b.onclick=()=>wdel(+b.dataset.i));
  const b=$("wmore");b.style.display=n>10?"inline-block":"none";b.textContent=wShowAll?"최근 10개만 보기":"전체기록 보기 ("+n+")";
  drawW();
 }
 async function wdel(i){if(!confirm("이 몸무게 기록을 삭제할까요?"))return;try{await deleteDoc(doc(db,"bp",wdata[i].id))}catch(e){alert("삭제하지 못했어요.")}}
-
 $("wsave").onclick=async()=>{
  const w=Math.round(parseFloat($("wkg").value)*10)/10;
  if(!w){$("werr").textContent="몸무게를 입력해 주세요.";return}
  if(w<20||w>300){$("werr").textContent="수치를 다시 확인해 주세요. (20~300kg)";return}
  $("werr").textContent="";$("wsave").disabled=true;
  const prev=wdata[wdata.length-1];
- try{await addDoc(collection(db,"bp"),{kind:"w",t:new Date().toISOString(),w,p:wcur,uid:auth.currentUser.uid})}
+ try{await addDoc(collection(db,"bp"),{kind:"w",t:new Date().toISOString(),w,uid:auth.currentUser.uid})}
  catch(e){$("werr").textContent="저장하지 못했어요. 인터넷 연결과 로그인 상태를 확인해 주세요.";$("wsave").disabled=false;return}
  $("wsave").disabled=false;$("wkg").value="";
  const df=prev?Math.round((w-prev.w)*10)/10:null;
  $("wmsg").textContent=prev?`기록했어요! 지난 기록(${prev.w}kg)보다 ${fmt(df)}kg ${df>0?"⬆️":df<0?"⬇️":"➖"}`:"첫 몸무게를 기록했어요 🎉";
 };
-
 function syncW(){document.querySelectorAll("#wvseg button").forEach(b=>b.classList.toggle("on",b.dataset.v==wview))}
 document.querySelectorAll("#wvseg button").forEach(b=>b.onclick=()=>{wview=b.dataset.v;syncW();drawW()});
 syncW();
 $("wmore").onclick=()=>{wShowAll=!wShowAll;renderW()};
 async function del(i){if(!confirm("이 기록을 삭제할까요?"))return;try{await deleteDoc(doc(db,"bp",data[i].id))}catch(e){alert("삭제하지 못했어요.")}}
-
 function render(){
+ // stats
  if(data.length){
   const av=k=>Math.round(data.reduce((a,x)=>a+x[k],0)/data.length);
   $("stats").innerHTML=`<div class="stat"><small>📝 기록 횟수</small><b>${data.length}회</b></div><div class="stat"><small>📊 평균 최고/최저</small><b>${av("s")}/${av("d")}</b></div><div class="stat"><small>💡 최근 상태</small><b style="color:${cls(data.at(-1).s,data.at(-1).d).c}">${cls(data.at(-1).s,data.at(-1).d).l}</b></div>`;
  }else $("stats").innerHTML="";
- 
+ // table
  $("rows").innerHTML=data.length?[...data].map((x,i)=>[x,i]).reverse().slice(0,showAll?data.length:10).map(([x,i])=>{
   const t=new Date(x.t),r=cls(x.s,x.d);
   return `<tr class="r" style="--c:${r.c}"><td>${t.getFullYear()}년</td><td>${t.getMonth()+1}/${t.getDate()} (${DOW[t.getDay()]})</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td>${per(x)=='am'?'☀️ 아침':'🌙 저녁'}</td><td><b>${x.s}</b></td><td><b>${x.d}</b></td><td><span class="badge" style="--c:${r.c}">${r.l}</span></td><td><button class="del" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="8" class="empty">아직 기록이 없어요</td></tr>`;
@@ -359,26 +303,24 @@ function render(){
  renderTips();renderNat();renderAge();renderMore();
  drawChart();
 }
-
 function drawChart(){
- const el=$("chart"),chartData=series(),n=chartData.length;
+ const el=$("chart"),data=series(),n=data.length;
  if(!n){el.innerHTML=`<div class="empty"><svg width="120" height="90" viewBox="0 0 120 90"><circle cx="60" cy="48" r="38" fill="var(--mint2)"/><path d="M60 72C36 56 32 44 32 38a12 12 0 0 1 28-3 12 12 0 0 1 28 3c0 6-4 18-28 34z" fill="var(--mint)"/><path d="M38 48h12l4-8 6 14 4-6h16" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="102" cy="14" r="5" fill="var(--mint2)"/><circle cx="14" cy="22" r="4" fill="var(--mint2)"/></svg><div>🌱 첫 혈압을 기록하면 그래프가 나타나요</div></div>`;return}
  const W=Math.max(600,n*58+70),H=270,pl=38,pr=18,pt=16,pb=44;
- const lo=Math.floor((Math.min(...chartData.map(x=>x.d),60)-10)/10)*10,hi=Math.ceil((Math.max(...chartData.map(x=>x.s),150)+10)/10)*10;
+ const lo=Math.floor((Math.min(...data.map(x=>x.d),60)-10)/10)*10,hi=Math.ceil((Math.max(...data.map(x=>x.s),150)+10)/10)*10;
  const X=i=>n==1?(W+pl-pr)/2:pl+i*(W-pl-pr)/(n-1),Y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo);
  let g="";const band=(a,b,c)=>{const t=Math.max(a,lo),u=Math.min(b,hi);return t<u?`<rect x="${pl}" y="${Y(u)}" width="${W-pl-pr}" height="${Y(t)-Y(u)}" fill="${c}" opacity=".18"/>`:""};g+=band(90,120,"#14b8a6")+band(60,80,"#6ec6ff");
  for(let v=lo;v<=hi;v+=20)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--sub)">${v}</text>`;
  [120,80].forEach(v=>{if(v>=lo&&v<=hi)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--mint)" stroke-dasharray="5 4" opacity=".8"/>`});
- const line=(k,c)=>`<polyline points="${chartData.map((x,i)=>X(i)+","+Y(x[k])).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`;
+ const line=(k,c)=>`<polyline points="${data.map((x,i)=>X(i)+","+Y(x[k])).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`;
  g+=line("s","#ff7a70")+line("d","#6d8cf0");
- chartData.forEach((x,i)=>{const r=cls(x.s,x.d);
+ data.forEach((x,i)=>{const t=new Date(x.t),r=cls(x.s,x.d);
   g+=`<circle cx="${X(i)}" cy="${Y(x.s)}" r="5" fill="${r.c}" stroke="var(--card)" stroke-width="2"><title>${x.s}/${x.d} ${r.l}</title></circle><circle cx="${X(i)}" cy="${Y(x.d)}" r="4" fill="#6d8cf0" stroke="var(--card)" stroke-width="2"></circle>`;
   g+=`<text x="${X(i)}" y="${Y(x.s)-9}" text-anchor="middle" font-size="10" fill="var(--ink)">${x.s}</text><text x="${X(i)}" y="${Y(x.d)+17}" text-anchor="middle" font-size="10" fill="var(--ink)">${x.d}</text>`;
   g+=`<text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="10" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="9" fill="var(--sub)">${x.l2}</text>`});
  el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="혈압 변화 그래프">${g}</svg>`;
  el.scrollLeft=el.scrollWidth;
 }
-
 render();renderW();
 if(NOCFG){$("lmsg").textContent="⚠️ firebase-config.js 파일에 Firebase 설정값을 넣어 주세요."}
 else onAuthStateChanged(auth,u=>{
@@ -388,7 +330,6 @@ else onAuthStateChanged(auth,u=>{
  if(u){unsub=onSnapshot(query(collection(db,"bp"),orderBy("t")),snap=>{const all=snap.docs.map(d=>({id:d.id,...d.data()}));data=all.filter(x=>x.kind!=="w");wdata=all.filter(x=>x.kind==="w");render();renderW()},()=>{$("err").textContent="데이터를 불러오지 못했어요. Firestore 규칙의 UID를 확인해 주세요."})}
  else{data=[];wdata=[];render();renderW()}
 });
-
 $("loginBtn").onclick=async()=>{
  if(NOCFG)return;
  const e=$("lemail").value.trim(),p=$("lpw").value;
