@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>마음혈압 · 혈압 체크</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<title>마음 혈압 · 몸무게 v3.0</title>
 <style>
 :root{--bg:#effaf7;--card:#fff;--ink:#12403a;--sub:#5d8a83;--mint:#2bbfa4;--mint2:#9fe5d6;--line:#d3eee8;--low:#4a90d9;--normal:#14b8a6;--elev:#d9a514;--pre:#f08a24;--high:#e5484d;--coral:#ff8a80;--sun:#ffc857;--sky:#6ec6ff;--lav:#b79cff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}}
 :root[data-theme="dark"]{--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Jua",-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.5}
 .wrap{max-width:760px;margin:0 auto;padding:16px;display:flex;flex-direction:column}header{order:-3}section.card:nth-of-type(1){order:-2}section.card:nth-of-type(6){order:-1}
 header{background:linear-gradient(135deg,#2bbfa4,#6ec6ff 55%,#b79cff);border-radius:24px;padding:20px;color:#fff;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
 header h1{margin:0;font-size:1.5rem}header p{margin:2px 0 0;opacity:.95;font-size:.92rem}
@@ -48,13 +49,17 @@ section.card:nth-of-type(4){border-top-color:var(--coral)}tr.r{background:color-
 input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9px 16px;border:0;border-radius:99px;background:var(--mint);color:#fff;font-weight:700;cursor:pointer}
 .login{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}.lbox{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--mint);border-radius:24px;padding:24px;width:100%;max-width:360px;text-align:center}.lbox input{font-size:1.05rem;margin-top:10px;text-align:left}.lo{margin-left:auto;position:relative;z-index:2;background:rgba(255,255,255,.28);color:#fff;border:0;border-radius:99px;padding:6px 12px;font-size:.8rem;cursor:pointer;align-self:flex-start}
 .wdel{background:none;border:0;color:var(--sub);cursor:pointer;font-size:1rem}section.card:nth-of-type(3),section.card:nth-of-type(4),section.card:nth-of-type(5){order:1}section.card:nth-of-type(7){border-top-color:var(--coral)}section.card:nth-of-type(8){border-top-color:var(--sky)}section.card:nth-of-type(9){border-top-color:var(--sun)}
+input,button,select{font-family:inherit}input{font-weight:400}b,h1,h2,h3,h4,button,.cn,th{font-weight:400}h1{letter-spacing:.5px}
+.lw{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;align-self:flex-start;position:relative;z-index:2}.lw .lo{margin-left:0;align-self:auto}.ver{color:#fff;font-size:.8rem;background:rgba(255,255,255,.22);border-radius:99px;padding:2px 10px}
+.auto{grid-template-columns:repeat(3,1fr)}.chip{flex-wrap:nowrap;gap:5px;padding:8px 4px}.chip b{min-width:0;line-height:1.2;font-size:.95rem;text-align:left}.chip small.num{width:38px;height:42px;flex:0 0 38px;font-size:1.1rem;padding-bottom:3px;font-weight:400}.chip small.num::before{height:11px}.chip small.num::after{top:3px;left:9px;width:4px;height:4px;box-shadow:14px 0 0 var(--card)}.chip small.clk{align-items:center;padding-bottom:0;font-size:1.3rem}.chip small.clk::before,.chip small.clk::after{display:none}.chip:nth-child(3) .num{--c:#9b7bff}
+.inputs button.main{margin-top:0;width:auto;height:54px;padding:0 14px;white-space:nowrap;font-size:.95rem}
 .note{order:2;font-size:.75rem;color:var(--sub);text-align:center;margin:16px 0 4px}
 </style>
 </head>
 <body>
 <div id="login" class="login"><div class="lbox">
  <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#2bbfa4"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
- <h1 style="margin:8px 0 2px;font-size:1.4rem">마음혈압 💗</h1>
+ <h1 style="margin:8px 0 2px;font-size:1.4rem">마음 혈압 💗 몸무게</h1>
  <p style="margin:0 0 8px;color:var(--sub);font-size:.9rem">나만의 혈압 기록장 🔒 로그인해 주세요</p>
  <input id="lemail" type="email" autocomplete="username" placeholder="이메일">
  <input id="lpw" type="password" autocomplete="current-password" placeholder="암호">
@@ -64,8 +69,8 @@ input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9p
 <div class="wrap" id="appwrap" style="display:none">
 <header>
  <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#fff"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#2bbfa4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
- <div><h1>마음혈압 💗</h1><p>매일 1분, 내 혈압을 가볍게 기록해요 🌿☀️</p></div>
- <button id="logout" class="lo">🔒 로그아웃</button><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+ <div><h1>마음 혈압 💗 몸무게</h1><p>매일 1분, 혈압과 몸무게를 가볍게 기록해요 🌿☀️</p></div>
+ <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">버전 3.0</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
 <span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
 
 <section class="card">
@@ -73,14 +78,14 @@ input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9p
  <div class="auto">
   <div class="chip"><small id="ey" class="num">-</small><b id="cy">-</b></div>
   <div class="chip"><small id="em" class="num">-</small><b id="cd">-</b></div>
-  <div class="chip"><small>⏰</small><b id="ct">-</b></div>
+  <div class="chip"><small class="num clk">⏰</small><b id="ct">-</b></div>
  </div>
- <div class="seg" id="seg"><button data-p="am">☀️ 아침</button><button data-p="pm">🌙 저녁</button></div><div class="inputs">
+ <div class="seg" id="seg"><button data-p="am">☀️ 아침</button><button data-p="pm">🌙 저녁</button></div><div class="inputs" style="grid-template-columns:1fr 1fr auto;align-items:end">
   <div><label for="sys">🔺 최고혈압 (수축기)</label><input id="sys" type="number" inputmode="numeric" placeholder="120"></div>
   <div><label for="dia">🔻 최저혈압 (이완기)</label><input id="dia" type="number" inputmode="numeric" placeholder="80"></div>
+ <button class="main" id="save">💚 혈압 체크</button>
  </div>
  <div class="err" id="err"></div>
- <button class="main" id="save">💚 혈압 체크하기</button>
  <div class="result" id="res">
   <svg id="resIcon" width="56" height="56" viewBox="0 0 56 56"></svg>
   <div><h3 id="resT"></h3><p id="resM"></p></div>
@@ -117,10 +122,9 @@ input::placeholder{color:var(--sub);opacity:.35;font-weight:400}.more{padding:9p
 </section>
 <section class="card">
  <h2>⚖️ 몸무게 기록하기 🍎</h2>
- <div class="auto" style="grid-template-columns:1fr 1fr"><div class="chip"><small>📅</small><b id="wd">-</b></div><div class="chip"><small>⏰</small><b id="wt">-</b></div></div>
- <div class="inputs" style="grid-template-columns:1fr"><div><label for="wkg">몸무게 (kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div></div>
+ <div class="auto"><div class="chip"><small id="wey" class="num">-</small><b id="wcy">-</b></div><div class="chip"><small id="wem" class="num">-</small><b id="wcd">-</b></div><div class="chip"><small class="num clk">⏰</small><b id="wct">-</b></div></div>
+ <div class="inputs" style="grid-template-columns:1fr auto;align-items:end"><div><label for="wkg">몸무게 (kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div><button class="main" id="wsave">⚖️ 몸무게 체크</button></div>
  <div class="err" id="werr"></div>
- <button class="main" id="wsave">💚 몸무게 기록하기</button>
  <p class="tipmsg" id="wmsg" style="margin:10px 0 0"></p>
 </section>
 <section class="card">
@@ -153,7 +157,7 @@ let data=[],wdata=[],wview="all",wShowAll=false;
 const $=id=>document.getElementById(id);
 const DOW=["일","월","화","수","목","금","토"];
 const p2=n=>String(n).padStart(2,"0");
-function tick(){const d=new Date();$("cy").textContent=d.getFullYear()+"년";$("ey").textContent=String(d.getFullYear()).slice(-2);$("em").textContent=d.getMonth()+1;$("wd").textContent=(d.getMonth()+1)+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+")";$("wt").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").textContent=(d.getMonth()+1)+"월 "+d.getDate()+"일 ("+DOW[d.getDay()]+")";$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
+function tick(){const d=new Date();$("cy").textContent=d.getFullYear()+"년";$("ey").textContent=String(d.getFullYear()).slice(-2);$("em").textContent=d.getMonth()+1;$("wcy").textContent=d.getFullYear()+"년";$("wey").textContent=String(d.getFullYear()).slice(-2);$("wem").textContent=d.getMonth()+1;$("wcd").textContent=d.getDate()+"일 ("+DOW[d.getDay()]+")";$("wct").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").textContent=d.getDate()+"일 ("+DOW[d.getDay()]+")";$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
 tick();setInterval(tick,1000);
 
 function cls(s,d){
@@ -182,7 +186,7 @@ $("save").onclick=async()=>{
  try{await addDoc(collection(db,"bp"),{t:new Date().toISOString(),s,d,p:cur,uid:auth.currentUser.uid})}
  catch(e){$("err").textContent="저장하지 못했어요. 인터넷 연결과 로그인 상태를 확인해 주세요.";$("save").disabled=false;return}
  $("save").disabled=false;
- showRes(cls(s,d),s,d);$("sys").value="";$("dia").value="";
+ apManual=false;cur=new Date().getHours()<12?'am':'pm';syncSeg();showRes(cls(s,d),s,d);$("sys").value="";$("dia").value="";
 };
 const TIPS={
 normal:{m:"지금처럼만 유지하면 돼요! 정상 혈압을 오래 지키는 방법이에요 🌈",ex:["주 3~5회, 30분 걷기·자전거 같은 유산소 운동","주 2회 가벼운 근력 운동","스트레칭·요가로 긴장 풀기 🧘"],food:["채소·과일·통곡물 중심의 식단 🥦","소금은 하루 5g 이하, 국물은 남기기","생선·견과류와 물을 충분히 💧"]},
@@ -199,14 +203,15 @@ function renderTips(){
  $("tips").innerHTML=`<div class="tip ex"><h4>🏃 운동</h4><ul>${ul(T.ex)}</ul></div><div class="tip food"><h4>🥗 식사</h4><ul>${ul(T.food)}</ul></div>`;
  document.body.style.background=r?`color-mix(in srgb,${r.c} 10%,var(--bg))`:"";
 }
-let cur=new Date().getHours()<15?'am':'pm',view='all',showAll=false;
+let cur=new Date().getHours()<12?'am':'pm',apManual=false,view='all',showAll=false;
+setInterval(()=>{if(!apManual){const c=new Date().getHours()<12?'am':'pm';if(c!==cur){cur=c;syncSeg()}}},20000);
 const AGE=[['20대',[110,126],[102,118],[66,80],[62,76]],['30대',[112,128],[104,120],[70,84],[66,78]],['40대',[114,132],[108,126],[72,86],[68,80]],['50대',[118,138],[114,136],[70,84],[68,80]],['60대',[120,142],[118,142],[66,80],[64,78]],['70대',[122,148],[122,148],[60,76],[58,74]],['80대+',[124,150],[124,152],[56,72],[54,70]]];
 const SC=['var(--normal)','var(--elev)','var(--pre)','var(--high)'];
 const G=[['🇰🇷','한국',(s,d)=>{const r=cls(s,d);return[{normal:0,low:0,elev:1,pre:2,high:3,crisis:3}[r.k],r.l]}],
 ['🇯🇵','일본',(s,d)=>s>=180||d>=110?[3,'고혈압 III도']:s>=160||d>=100?[3,'고혈압 II도']:s>=140||d>=90?[3,'고혈압 I도']:s>=130||d>=80?[2,'상승혈압']:s>=120?[1,'정상고치혈압']:[0,'정상혈압']],
 ['🇺🇸','미국',(s,d)=>s>=140||d>=90?[3,'2단계 고혈압']:s>=130||d>=80?[2,'1단계 고혈압']:s>=120?[1,'상승 혈압']:[0,'정상']],
 ['🇪🇺','유럽',(s,d)=>s>=140||d>=90?[3,'고혈압']:s>=120||d>=70?[1,'상승 혈압']:[0,'비상승(정상)']]];
-function per(x){return x.p||(new Date(x.t).getHours()<15?'am':'pm')}
+function per(x){return x.p||(new Date(x.t).getHours()<12?'am':'pm')}
 function series(){
  if(view=='all')return data.map(x=>{const t=new Date(x.t);return{...x,l1:(t.getMonth()+1)+'/'+t.getDate(),l2:(per(x)=='am'?'☀️':'🌙')+p2(t.getHours())+':'+p2(t.getMinutes())}});
  const g={};
@@ -232,7 +237,7 @@ function renderAge(){
  $('agemsg').textContent=m;
 }
 function syncSeg(){document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.p==cur));document.querySelectorAll('#vseg button').forEach(b=>b.classList.toggle('on',b.dataset.v==view))}
-document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{cur=b.dataset.p;syncSeg()});
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{cur=b.dataset.p;apManual=true;syncSeg()});
 document.querySelectorAll('#vseg button').forEach(b=>b.onclick=()=>{view=b.dataset.v;syncSeg();drawChart()});
 syncSeg();
 try{const p=JSON.parse(localStorage.getItem('bp-prof')||'{}');if(p.age)$('age').value=p.age;if(p.sex)$('sex').value=p.sex}catch(e){}
