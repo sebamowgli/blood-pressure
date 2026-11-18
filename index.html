@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<title>마음 혈압 · 몸무게 v7.0</title>
+<title>마음 혈압 · 몸무게 v7.1</title>
 <style>
 :root{--bg:#effaf7;--card:#fff;--ink:#12403a;--sub:#5d8a83;--mint:#2bbfa4;--mint2:#9fe5d6;--line:#d3eee8;--low:#4a90d9;--normal:#14b8a6;--elev:#d9a514;--pre:#f08a24;--high:#e5484d;--coral:#ff8a80;--sun:#ffc857;--sky:#6ec6ff;--lav:#b79cff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}}
@@ -127,6 +127,12 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
  .pill{font-size:1rem}.hw{font-size:.85rem}.cb .fg{font-size:3rem}
 }
 @media (max-width:360px){html{font-size:16px}}
+.auto{grid-template-columns:2fr 1fr}.chip{min-height:68px}
+#rows td:first-child,#wrows td:first-child{white-space:nowrap}
+@media (max-width:480px){
+ .chip{min-height:76px}.chip b{font-size:1.2rem}
+ #rows td:first-child,#wrows td:first-child{font-size:.76rem}
+}
 .note{order:2;font-size:.75rem;color:var(--sub);text-align:center;margin:16px 0 4px}
 </style>
 </head>
@@ -144,13 +150,13 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 <header>
  <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#fff"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#2bbfa4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
  <div><h1>마음 혈압 💗 몸무게</h1><p>매일 1분, 혈압과 체중을 가볍게 기록해요 🌿☀️</p></div>
- <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 7.0</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+ <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 7.1</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
 <span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
 
 <section class="card">
  <h2><svg width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="9" width="14" height="10" rx="3" fill="#9fe5d6"/><path d="M17 12h3a2 2 0 0 1 0 4h-3M8 9V6a2 2 0 0 1 4 0v3" stroke="#2bbfa4" stroke-width="2" fill="none"/></svg>혈압 기록하기 ✍️</h2>
  <div class="auto">
-  <div class="chip"><b id="cy">-</b></div>
+  
   <div class="chip"><b id="cd">-</b></div>
   <div class="chip"><b id="ct">-</b></div>
  </div>
@@ -167,7 +173,7 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 </section>
 <section class="card">
  <h2><svg width="24" height="24" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3" fill="#9fe5d6"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#2bbfa4" stroke-width="2" stroke-linecap="round"/></svg>전체 혈압기록 📋</h2>
- <div class="scroll"><table><thead><tr><th>연도</th><th>날짜</th><th>시간</th><th>최고</th><th>최저</th><th>상태</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div style="text-align:right;margin-top:10px"><button class="more" id="more" style="display:none"></button></div>
+ <div class="scroll"><table><thead><tr><th>날짜</th><th>시간</th><th>최고</th><th>최저</th><th>상태</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div style="text-align:right;margin-top:10px"><button class="more" id="more" style="display:none"></button></div>
  <div class="ref"><b>분류 기준</b> (대한고혈압학회 기준을 단순화)<br>저혈압 90/60 미만 · 정상 120/80 미만 · 주의혈압 120~129 / 80 미만 · 고혈압 전단계 130~139 또는 80~89 · 고혈압 140/90 이상</div>
 </section>
 <section class="card">
@@ -178,14 +184,14 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 </section>
 <section class="card">
  <h2>⚖️ 체중 기록하기 🍎</h2>
- <div class="auto"><div class="chip"><b id="wcy">-</b></div><div class="chip"><b id="wcd">-</b></div><div class="chip"><b id="wct">-</b></div></div>
+ <div class="auto"><div class="chip"><b id="wcd">-</b></div><div class="chip"><b id="wct">-</b></div></div>
  <div class="row4" style="margin-top:12px"><div><label for="hcm">📏 키(cm)</label><input id="hcm" type="number" inputmode="decimal" step="0.1" placeholder="170"></div><div><label>🧮 BMI</label><div class="bmi" id="bmibox"><b id="bmiv">-</b><small id="bmil">&nbsp;</small></div></div><div><label for="wkg">⚖️ 체중(kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div><button class="main" id="wsave" aria-label="체중 체크">+</button></div>
  <div class="err" id="werr"></div>
  <p class="tipmsg" id="wmsg" style="margin:10px 0 0"></p>
 </section>
 <section class="card">
  <h2>📋 전체 체중 기록</h2>
- <div class="scroll"><table style="min-width:440px"><thead><tr><th>연도</th><th>날짜</th><th>시간</th><th>체중(kg)</th><th>BMI</th><th>상태</th><th>변화</th><th></th></tr></thead><tbody id="wrows"></tbody></table></div>
+ <div class="scroll"><table style="min-width:440px"><thead><tr><th>날짜</th><th>시간</th><th>체중(kg)</th><th>BMI</th><th>상태</th><th>변화</th><th></th></tr></thead><tbody id="wrows"></tbody></table></div>
  <div style="text-align:right;margin-top:10px"><button class="more" id="wmore" style="display:none"></button></div>
 </section>
 <section class="card">
@@ -221,7 +227,8 @@ let data=[],wdata=[],wview="all",wShowAll=false;
 const $=id=>document.getElementById(id);
 const DOW=["일","월","화","수","목","금","토"];
 const p2=n=>String(n).padStart(2,"0");
-function tick(){const d=new Date();$("cy").textContent=d.getFullYear()+"년";$("wcy").textContent=d.getFullYear()+"년";$("wcd").innerHTML=(d.getMonth()+1)+"월 "+d.getDate()+'일<em class="wk">('+DOW[d.getDay()]+'요일)</em>';$("wct").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").innerHTML=(d.getMonth()+1)+"월 "+d.getDate()+'일<em class="wk">('+DOW[d.getDay()]+'요일)</em>';$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
+const fd=d=>d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())+"("+DOW[d.getDay()]+")";
+function tick(){const d=new Date();$("wcd").textContent=fd(d);$("wct").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").textContent=fd(d);$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
 tick();setInterval(tick,1000);
 
 function cls(s,d){
@@ -326,7 +333,7 @@ function renderW(){
  const n=wdata.length,last=wdata[n-1],first=wdata[0];
  $("wstats").innerHTML=n?`<div class="stat"><small>📝 기록 횟수</small><b>${n}회</b></div><div class="stat"><small>⚖️ 최근 체중</small><b>${last.w}kg</b></div><div class="stat"><small>📊 처음 대비</small><b>${n>1?fmt(last.w-first.w)+"kg":"-"}</b></div>`:"";
  $("wrows").innerHTML=n?[...wdata].map((x,i)=>[x,i]).reverse().slice(0,wShowAll?n:10).map(([x,i])=>{const t=new Date(x.t),df=i?Math.round((x.w-wdata[i-1].w)*10)/10:null,bi=bmiOf(x.w,hOf(x));
-  return `<tr class="r" style="--c:${bi!=null?bmiCat(bi)[1]:"var(--line)"}"><td>${t.getFullYear()}년</td><td>${t.getMonth()+1}/${t.getDate()} (${DOW[t.getDay()]})</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td><b>${x.w}</b></td><td><b>${bi??"-"}</b></td><td>${bi!=null?`<span class="badge" style="--c:${bmiCat(bi)[1]}">${bmiCat(bi)[0]}</span>`:"-"}</td><td>${df===null?"-":fmt(df)+(df>0?" ⬆️":df<0?" ⬇️":" ➖")}</td><td><button class="wdel" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="8" class="empty">아직 기록이 없어요</td></tr>`;
+  return `<tr class="r" style="--c:${bi!=null?bmiCat(bi)[1]:"var(--line)"}"><td>${fd(t)}</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td><b>${x.w}</b></td><td><b>${bi??"-"}</b></td><td>${bi!=null?`<span class="badge" style="--c:${bmiCat(bi)[1]}">${bmiCat(bi)[0]}</span>`:"-"}</td><td>${df===null?"-":fmt(df)+(df>0?" ⬆️":df<0?" ⬇️":" ➖")}</td><td><button class="wdel" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="7" class="empty">아직 기록이 없어요</td></tr>`;
  document.querySelectorAll(".wdel").forEach(b=>b.onclick=()=>wdel(+b.dataset.i));
  const mb=$("wmore");mb.style.display=n>10?"inline-block":"none";mb.textContent=wShowAll?"최근 10개만 보기":"전체기록 보기 ("+n+")";
  if(!$("hcm").value&&lastH())$("hcm").value=lastH();
@@ -362,7 +369,7 @@ function render(){
  // table
  $("rows").innerHTML=data.length?[...data].map((x,i)=>[x,i]).reverse().slice(0,showAll?data.length:10).map(([x,i])=>{
   const t=new Date(x.t),r=cls(x.s,x.d);
-  return `<tr class="r" style="--c:${r.c}"><td>${t.getFullYear()}년</td><td>${t.getMonth()+1}/${t.getDate()} (${DOW[t.getDay()]})</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td><b>${x.s}</b></td><td><b>${x.d}</b></td><td><span class="badge" style="--c:${r.c}">${r.l}</span></td><td><button class="del" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="7" class="empty">아직 기록이 없어요</td></tr>`;
+  return `<tr class="r" style="--c:${r.c}"><td>${fd(t)}</td><td>${p2(t.getHours())}:${p2(t.getMinutes())}</td><td><b>${x.s}</b></td><td><b>${x.d}</b></td><td><span class="badge" style="--c:${r.c}">${r.l}</span></td><td><button class="del" data-i="${i}" title="삭제">✕</button></td></tr>`}).join(""):`<tr><td colspan="6" class="empty">아직 기록이 없어요</td></tr>`;
  document.querySelectorAll(".del").forEach(b=>b.onclick=()=>del(+b.dataset.i));
  renderTips();renderNat();renderMore();
  drawChart();
