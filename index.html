@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<title>마음 혈압 · 몸무게 v6.2</title>
+<title>마음 혈압 · 몸무게 v7.0</title>
 <style>
 :root{--bg:#effaf7;--card:#fff;--ink:#12403a;--sub:#5d8a83;--mint:#2bbfa4;--mint2:#9fe5d6;--line:#d3eee8;--low:#4a90d9;--normal:#14b8a6;--elev:#d9a514;--pre:#f08a24;--high:#e5484d;--coral:#ff8a80;--sun:#ffc857;--sky:#6ec6ff;--lav:#b79cff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}}
@@ -106,6 +106,27 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
  #rows .badge,#wrows .badge{font-size:.7rem;padding:2px 7px}
  .nat2{grid-template-columns:1fr;gap:10px}.cb{padding:14px 12px;gap:12px;min-height:96px}.cb .fg{font-size:2.8rem}.pill{font-size:.95rem;padding:3px 10px}.hw{font-size:.8rem}
 }
+.chip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:72px;padding:10px 6px;text-align:center}
+.chip b{font-size:1.3rem;line-height:1.2;text-align:center}.chip b .wk{display:block;font-style:normal;font-size:.62em;color:var(--sub);font-weight:400;margin-top:2px}
+.nat2 .cb:nth-child(1){--cc:#4f8dff}.nat2 .cb:nth-child(2){--cc:#ff6b81}.nat2 .cb:nth-child(3){--cc:#7a6cff}.nat2 .cb:nth-child(4){--cc:#f5b800}
+.nat2 .cb{border-color:var(--cc,var(--mint));background:color-mix(in srgb,var(--cc,var(--mint)) 16%,var(--card))}
+@media (max-width:480px){
+ html{font-size:17px}
+ .chip{min-height:84px;padding:10px 2px}.chip b{font-size:1.05rem}.chip b .wk{font-size:.68em}
+ header h1{font-size:1.2rem}header p{font-size:.78rem}.lw .lo{font-size:.78rem}.ver{font-size:.75rem}
+ h2{font-size:1.1rem}
+ .row3 input,.row4 input,.bmi,.row3 button.main,.row4 button.main{height:60px}
+ .row3 input{font-size:22px}.row4 input{font-size:20px}.row3 label{font-size:.78rem}.row4 label{font-size:.72rem}
+ .bmi b{font-size:1.25rem}.bmi small{font-size:.7rem}
+ .stat b{font-size:.98rem}.stat small{font-size:.7rem}
+ .seg button{font-size:.85rem}
+ .legend{font-size:.78rem}.gt{font-size:.88rem}
+ .ref{font-size:.78rem}.note{font-size:.75rem}.tipmsg{font-size:.9rem}.more{font-size:.88rem}
+ th{font-size:.74rem}
+ #rows td,#wrows td{font-size:.8rem}#rows td b,#wrows td b{font-size:1.1rem}#rows .badge,#wrows .badge{font-size:.72rem}
+ .pill{font-size:1rem}.hw{font-size:.85rem}.cb .fg{font-size:3rem}
+}
+@media (max-width:360px){html{font-size:16px}}
 .note{order:2;font-size:.75rem;color:var(--sub);text-align:center;margin:16px 0 4px}
 </style>
 </head>
@@ -123,15 +144,15 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 <header>
  <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#fff"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#2bbfa4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
  <div><h1>마음 혈압 💗 몸무게</h1><p>매일 1분, 혈압과 체중을 가볍게 기록해요 🌿☀️</p></div>
- <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 6.2</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+ <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 7.0</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
 <span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
 
 <section class="card">
  <h2><svg width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="9" width="14" height="10" rx="3" fill="#9fe5d6"/><path d="M17 12h3a2 2 0 0 1 0 4h-3M8 9V6a2 2 0 0 1 4 0v3" stroke="#2bbfa4" stroke-width="2" fill="none"/></svg>혈압 기록하기 ✍️</h2>
  <div class="auto">
-  <div class="chip"><small id="ey" class="num">-</small><b id="cy">-</b></div>
-  <div class="chip"><small id="em" class="num">-</small><b id="cd">-</b></div>
-  <div class="chip"><small class="num clk">⏰</small><b id="ct">-</b></div>
+  <div class="chip"><b id="cy">-</b></div>
+  <div class="chip"><b id="cd">-</b></div>
+  <div class="chip"><b id="ct">-</b></div>
  </div>
  <div class="row3" style="margin-top:12px">
   <div><label for="sys">🔺 최고혈압</label><input id="sys" type="number" inputmode="numeric" placeholder="120"></div>
@@ -157,7 +178,7 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 </section>
 <section class="card">
  <h2>⚖️ 체중 기록하기 🍎</h2>
- <div class="auto"><div class="chip"><small id="wey" class="num">-</small><b id="wcy">-</b></div><div class="chip"><small id="wem" class="num">-</small><b id="wcd">-</b></div><div class="chip"><small class="num clk">⏰</small><b id="wct">-</b></div></div>
+ <div class="auto"><div class="chip"><b id="wcy">-</b></div><div class="chip"><b id="wcd">-</b></div><div class="chip"><b id="wct">-</b></div></div>
  <div class="row4" style="margin-top:12px"><div><label for="hcm">📏 키(cm)</label><input id="hcm" type="number" inputmode="decimal" step="0.1" placeholder="170"></div><div><label>🧮 BMI</label><div class="bmi" id="bmibox"><b id="bmiv">-</b><small id="bmil">&nbsp;</small></div></div><div><label for="wkg">⚖️ 체중(kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div><button class="main" id="wsave" aria-label="체중 체크">+</button></div>
  <div class="err" id="werr"></div>
  <p class="tipmsg" id="wmsg" style="margin:10px 0 0"></p>
@@ -200,7 +221,7 @@ let data=[],wdata=[],wview="all",wShowAll=false;
 const $=id=>document.getElementById(id);
 const DOW=["일","월","화","수","목","금","토"];
 const p2=n=>String(n).padStart(2,"0");
-function tick(){const d=new Date();$("cy").textContent=d.getFullYear()+"년";$("ey").textContent=String(d.getFullYear()).slice(-2);$("em").textContent=d.getMonth()+1;$("wcy").textContent=d.getFullYear()+"년";$("wey").textContent=String(d.getFullYear()).slice(-2);$("wem").textContent=d.getMonth()+1;$("wcd").innerHTML=(d.getMonth()+1)+"월 "+d.getDate()+'일<em class="wk">('+DOW[d.getDay()]+'요일)</em>';$("wct").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").innerHTML=(d.getMonth()+1)+"월 "+d.getDate()+'일<em class="wk">('+DOW[d.getDay()]+'요일)</em>';$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
+function tick(){const d=new Date();$("cy").textContent=d.getFullYear()+"년";$("wcy").textContent=d.getFullYear()+"년";$("wcd").innerHTML=(d.getMonth()+1)+"월 "+d.getDate()+'일<em class="wk">('+DOW[d.getDay()]+'요일)</em>';$("wct").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").innerHTML=(d.getMonth()+1)+"월 "+d.getDate()+'일<em class="wk">('+DOW[d.getDay()]+'요일)</em>';$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
 tick();setInterval(tick,1000);
 
 function cls(s,d){
@@ -286,12 +307,12 @@ function lineChart(id,D0,key,color,band){
  const W=Math.max(el.clientWidth||320,n*56+60),H=220,pl=36,pr=14,pt=18,pb=44;
  const vs=D.map(x=>x[key]);let lo=Math.floor(Math.min(...vs)-1),hi=Math.ceil(Math.max(...vs)+1);if(band){lo=Math.min(lo,Math.floor(band[0]));hi=Math.max(hi,Math.ceil(band[1]))}
  const X=i=>n==1?(W+pl-pr)/2:pl+i*(W-pl-pr)/(n-1),Y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo),step=Math.max(1,Math.ceil((hi-lo)/5));
- const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(44/sp)),show=i=>i%st===0||i===n-1;
+ const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(54/sp)),show=i=>i%st===0||i===n-1;
  let g="";
  if(band){const t=Math.max(band[0],lo),u=Math.min(band[1],hi);if(t<u)g+=`<rect x="${pl}" y="${Y(u)}" width="${W-pl-pr}" height="${Y(t)-Y(u)}" fill="#14b8a6" opacity=".18"/>`}
- for(let v=lo;v<=hi;v+=step)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--sub)">${v}</text>`;
+ for(let v=lo;v<=hi;v+=step)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="12" fill="var(--sub)">${v}</text>`;
  g+=`<polyline points="${D.map((x,i)=>X(i)+","+Y(x[key])).join(" ")}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
- D.forEach((x,i)=>{g+=`<circle cx="${X(i)}" cy="${Y(x[key])}" r="5" fill="${color}" stroke="var(--card)" stroke-width="2"/>`;if(show(i))g+=`<text x="${X(i)}" y="${Y(x[key])-10}" text-anchor="middle" font-size="11" fill="var(--ink)">${x[key]}</text><text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="10" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="9" fill="var(--sub)">${x.l2}</text>`});
+ D.forEach((x,i)=>{g+=`<circle cx="${X(i)}" cy="${Y(x[key])}" r="5" fill="${color}" stroke="var(--card)" stroke-width="2"/>`;if(show(i))g+=`<text x="${X(i)}" y="${Y(x[key])-10}" text-anchor="middle" font-size="12" fill="var(--ink)">${x[key]}</text><text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="12" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="10.5" fill="var(--sub)">${x.l2}</text>`});
  el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${key==="b"?"BMI":"체중"} 변화 그래프">${g}</svg>`;
  el.scrollLeft=el.scrollWidth;
 }
@@ -352,16 +373,16 @@ function drawChart(){
  const W=Math.max(el.clientWidth||320,n*56+60),H=250,pl=34,pr=14,pt=14,pb=44;
  const lo=Math.floor((Math.min(...data.map(x=>x.d),60)-10)/10)*10,hi=Math.ceil((Math.max(...data.map(x=>x.s),150)+10)/10)*10;
  const X=i=>n==1?(W+pl-pr)/2:pl+i*(W-pl-pr)/(n-1),Y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo);
- const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(44/sp)),show=i=>i%st===0||i===n-1;
+ const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(54/sp)),show=i=>i%st===0||i===n-1;
  let g="";const band=(a,b,c)=>{const t=Math.max(a,lo),u=Math.min(b,hi);return t<u?`<rect x="${pl}" y="${Y(u)}" width="${W-pl-pr}" height="${Y(t)-Y(u)}" fill="${c}" opacity=".18"/>`:""};g+=band(90,120,"#14b8a6")+band(60,80,"#6ec6ff");
- for(let v=lo;v<=hi;v+=20)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--sub)">${v}</text>`;
+ for(let v=lo;v<=hi;v+=20)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="12" fill="var(--sub)">${v}</text>`;
  [120,80].forEach(v=>{if(v>=lo&&v<=hi)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--mint)" stroke-dasharray="5 4" opacity=".8"/>`});
  const line=(k,c)=>`<polyline points="${data.map((x,i)=>X(i)+","+Y(x[k])).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`;
  g+=line("s","#ff7a70")+line("d","#6d8cf0");
  data.forEach((x,i)=>{const t=new Date(x.t),r=cls(x.s,x.d);
   g+=`<circle cx="${X(i)}" cy="${Y(x.s)}" r="5" fill="${r.c}" stroke="var(--card)" stroke-width="2"><title>${x.s}/${x.d} ${r.l}</title></circle><circle cx="${X(i)}" cy="${Y(x.d)}" r="4" fill="#6d8cf0" stroke="var(--card)" stroke-width="2"></circle>`;
-  if(show(i))g+=`<text x="${X(i)}" y="${Y(x.s)-9}" text-anchor="middle" font-size="10" fill="var(--ink)">${x.s}</text><text x="${X(i)}" y="${Y(x.d)+17}" text-anchor="middle" font-size="10" fill="var(--ink)">${x.d}</text>`;
-  if(show(i))g+=`<text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="10" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="9" fill="var(--sub)">${x.l2}</text>`});
+  if(show(i))g+=`<text x="${X(i)}" y="${Y(x.s)-9}" text-anchor="middle" font-size="12" fill="var(--ink)">${x.s}</text><text x="${X(i)}" y="${Y(x.d)+17}" text-anchor="middle" font-size="12" fill="var(--ink)">${x.d}</text>`;
+  if(show(i))g+=`<text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="12" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="10.5" fill="var(--sub)">${x.l2}</text>`});
  el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="혈압 변화 그래프">${g}</svg>`;
  el.scrollLeft=el.scrollWidth;
 }
