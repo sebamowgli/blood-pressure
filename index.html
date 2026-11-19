@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<title>마음 혈압 · 몸무게 v7.1</title>
+<title>마음 혈압 · 몸무게 v7.2</title>
 <style>
 :root{--bg:#effaf7;--card:#fff;--ink:#12403a;--sub:#5d8a83;--mint:#2bbfa4;--mint2:#9fe5d6;--line:#d3eee8;--low:#4a90d9;--normal:#14b8a6;--elev:#d9a514;--pre:#f08a24;--high:#e5484d;--coral:#ff8a80;--sun:#ffc857;--sky:#6ec6ff;--lav:#b79cff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}}
@@ -133,6 +133,14 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
  .chip{min-height:76px}.chip b{font-size:1.2rem}
  #rows td:first-child,#wrows td:first-child{font-size:.76rem}
 }
+#chart,#wchart,#bchart{overflow:hidden}
+.cl{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.cl .pill{flex:1 1 0;min-width:0;margin:0;justify-content:center;text-align:center;line-height:1.25}
+.cl .hw{flex:0 0 100%;margin-top:0}
+@media (max-width:480px){
+ .chip b{font-size:1.1rem}
+ .pill{font-size:.85rem;padding:5px 6px}
+}
 .note{order:2;font-size:.75rem;color:var(--sub);text-align:center;margin:16px 0 4px}
 </style>
 </head>
@@ -150,7 +158,7 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 <header>
  <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#fff"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#2bbfa4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
  <div><h1>마음 혈압 💗 몸무게</h1><p>매일 1분, 혈압과 체중을 가볍게 기록해요 🌿☀️</p></div>
- <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 7.1</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+ <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 7.2</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
 <span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
 
 <section class="card">
@@ -185,7 +193,7 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 <section class="card">
  <h2>⚖️ 체중 기록하기 🍎</h2>
  <div class="auto"><div class="chip"><b id="wcd">-</b></div><div class="chip"><b id="wct">-</b></div></div>
- <div class="row4" style="margin-top:12px"><div><label for="hcm">📏 키(cm)</label><input id="hcm" type="number" inputmode="decimal" step="0.1" placeholder="170"></div><div><label>🧮 BMI</label><div class="bmi" id="bmibox"><b id="bmiv">-</b><small id="bmil">&nbsp;</small></div></div><div><label for="wkg">⚖️ 체중(kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div><button class="main" id="wsave" aria-label="체중 체크">+</button></div>
+ <div class="row4" style="margin-top:12px"><div><label for="hcm">📏 키(cm)</label><input id="hcm" type="number" inputmode="decimal" step="0.1" placeholder="170"></div><div><label for="wkg">⚖️ 체중(kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" placeholder="60.0"></div><div><label>🧮 BMI</label><div class="bmi" id="bmibox"><b id="bmiv">-</b><small id="bmil">&nbsp;</small></div></div><button class="main" id="wsave" aria-label="체중 체크">+</button></div>
  <div class="err" id="werr"></div>
  <p class="tipmsg" id="wmsg" style="margin:10px 0 0"></p>
 </section>
@@ -228,7 +236,7 @@ const $=id=>document.getElementById(id);
 const DOW=["일","월","화","수","목","금","토"];
 const p2=n=>String(n).padStart(2,"0");
 const fd=d=>d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())+"("+DOW[d.getDay()]+")";
-function tick(){const d=new Date();$("wcd").textContent=fd(d);$("wct").textContent=p2(d.getHours())+":"+p2(d.getMinutes());$("cd").textContent=fd(d);$("ct").textContent=p2(d.getHours())+":"+p2(d.getMinutes())}
+function tick(){const d=new Date();$("wcd").textContent="📅 "+fd(d);$("wct").textContent="⏰ "+p2(d.getHours())+":"+p2(d.getMinutes());$("cd").textContent="📅 "+fd(d);$("ct").textContent="⏰ "+p2(d.getHours())+":"+p2(d.getMinutes())}
 tick();setInterval(tick,1000);
 
 function cls(s,d){
@@ -311,15 +319,15 @@ function wseries(){
 function lineChart(id,D0,key,color,band){
  const el=$(id),D=D0.filter(x=>x[key]!=null),n=D.length;
  if(!n){el.innerHTML=`<div class="empty">${key==="b"?(wdata.length&&!lastH()?"🧮 키를 기록하면 BMI 그래프가 나타나요":wdata.length?"🧮 이 기간에는 기록이 없어요":"🧮 키와 체중을 기록하면 BMI 그래프가 나타나요"):(wdata.length?"🍎 이 기간에는 기록이 없어요":"🍎 첫 체중을 기록하면 그래프가 나타나요")}</div>`;return}
- const W=Math.max(el.clientWidth||320,n*56+60),H=220,pl=36,pr=14,pt=18,pb=44;
+ const W=el.clientWidth||320,H=220,pl=36,pr=14,pt=18,pb=44;
  const vs=D.map(x=>x[key]);let lo=Math.floor(Math.min(...vs)-1),hi=Math.ceil(Math.max(...vs)+1);if(band){lo=Math.min(lo,Math.floor(band[0]));hi=Math.max(hi,Math.ceil(band[1]))}
  const X=i=>n==1?(W+pl-pr)/2:pl+i*(W-pl-pr)/(n-1),Y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo),step=Math.max(1,Math.ceil((hi-lo)/5));
- const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(54/sp)),show=i=>i%st===0||i===n-1;
+ const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(54/sp)),show=i=>i%st===0||i===n-1,rr=sp<14?3:5;
  let g="";
  if(band){const t=Math.max(band[0],lo),u=Math.min(band[1],hi);if(t<u)g+=`<rect x="${pl}" y="${Y(u)}" width="${W-pl-pr}" height="${Y(t)-Y(u)}" fill="#14b8a6" opacity=".18"/>`}
  for(let v=lo;v<=hi;v+=step)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="12" fill="var(--sub)">${v}</text>`;
  g+=`<polyline points="${D.map((x,i)=>X(i)+","+Y(x[key])).join(" ")}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
- D.forEach((x,i)=>{g+=`<circle cx="${X(i)}" cy="${Y(x[key])}" r="5" fill="${color}" stroke="var(--card)" stroke-width="2"/>`;if(show(i))g+=`<text x="${X(i)}" y="${Y(x[key])-10}" text-anchor="middle" font-size="12" fill="var(--ink)">${x[key]}</text><text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="12" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="10.5" fill="var(--sub)">${x.l2}</text>`});
+ D.forEach((x,i)=>{g+=`<circle cx="${X(i)}" cy="${Y(x[key])}" r="${rr}" fill="${color}" stroke="var(--card)" stroke-width="2"/>`;if(show(i))g+=`<text x="${X(i)}" y="${Y(x[key])-10}" text-anchor="middle" font-size="12" fill="var(--ink)">${x[key]}</text><text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="12" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="10.5" fill="var(--sub)">${x.l2}</text>`});
  el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${key==="b"?"BMI":"체중"} 변화 그래프">${g}</svg>`;
  el.scrollLeft=el.scrollWidth;
 }
@@ -377,17 +385,17 @@ function render(){
 function drawChart(){
  const el=$("chart"),data=series(),n=data.length;
  if(!n){el.innerHTML=`<div class="empty"><svg width="120" height="90" viewBox="0 0 120 90"><circle cx="60" cy="48" r="38" fill="var(--mint2)"/><path d="M60 72C36 56 32 44 32 38a12 12 0 0 1 28-3 12 12 0 0 1 28 3c0 6-4 18-28 34z" fill="var(--mint)"/><path d="M38 48h12l4-8 6 14 4-6h16" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="102" cy="14" r="5" fill="var(--mint2)"/><circle cx="14" cy="22" r="4" fill="var(--mint2)"/></svg><div>🌱 ${data.length?"이 기간에는 기록이 없어요":"첫 혈압을 기록하면 그래프가 나타나요"}</div></div>`;return}
- const W=Math.max(el.clientWidth||320,n*56+60),H=250,pl=34,pr=14,pt=14,pb=44;
+ const W=el.clientWidth||320,H=250,pl=34,pr=14,pt=14,pb=44;
  const lo=Math.floor((Math.min(...data.map(x=>x.d),60)-10)/10)*10,hi=Math.ceil((Math.max(...data.map(x=>x.s),150)+10)/10)*10;
  const X=i=>n==1?(W+pl-pr)/2:pl+i*(W-pl-pr)/(n-1),Y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo);
- const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(54/sp)),show=i=>i%st===0||i===n-1;
+ const sp=(W-pl-pr)/Math.max(1,n-1),st=Math.max(1,Math.ceil(54/sp)),show=i=>i%st===0||i===n-1,rr=sp<14?3:5;
  let g="";const band=(a,b,c)=>{const t=Math.max(a,lo),u=Math.min(b,hi);return t<u?`<rect x="${pl}" y="${Y(u)}" width="${W-pl-pr}" height="${Y(t)-Y(u)}" fill="${c}" opacity=".18"/>`:""};g+=band(90,120,"#14b8a6")+band(60,80,"#6ec6ff");
  for(let v=lo;v<=hi;v+=20)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end" font-size="12" fill="var(--sub)">${v}</text>`;
  [120,80].forEach(v=>{if(v>=lo&&v<=hi)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--mint)" stroke-dasharray="5 4" opacity=".8"/>`});
  const line=(k,c)=>`<polyline points="${data.map((x,i)=>X(i)+","+Y(x[k])).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`;
  g+=line("s","#ff7a70")+line("d","#6d8cf0");
  data.forEach((x,i)=>{const t=new Date(x.t),r=cls(x.s,x.d);
-  g+=`<circle cx="${X(i)}" cy="${Y(x.s)}" r="5" fill="${r.c}" stroke="var(--card)" stroke-width="2"><title>${x.s}/${x.d} ${r.l}</title></circle><circle cx="${X(i)}" cy="${Y(x.d)}" r="4" fill="#6d8cf0" stroke="var(--card)" stroke-width="2"></circle>`;
+  g+=`<circle cx="${X(i)}" cy="${Y(x.s)}" r="${rr}" fill="${r.c}" stroke="var(--card)" stroke-width="2"><title>${x.s}/${x.d} ${r.l}</title></circle><circle cx="${X(i)}" cy="${Y(x.d)}" r="${rr>3?4:2.5}" fill="#6d8cf0" stroke="var(--card)" stroke-width="2"></circle>`;
   if(show(i))g+=`<text x="${X(i)}" y="${Y(x.s)-9}" text-anchor="middle" font-size="12" fill="var(--ink)">${x.s}</text><text x="${X(i)}" y="${Y(x.d)+17}" text-anchor="middle" font-size="12" fill="var(--ink)">${x.d}</text>`;
   if(show(i))g+=`<text x="${X(i)}" y="${H-pb+16}" text-anchor="middle" font-size="12" fill="var(--sub)">${x.l1}</text><text x="${X(i)}" y="${H-pb+29}" text-anchor="middle" font-size="10.5" fill="var(--sub)">${x.l2}</text>`});
  el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="혈압 변화 그래프">${g}</svg>`;
