@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<title>마음 혈압 · 몸무게 v7.2</title>
+<title>마음 혈압 · 몸무게 v8.0</title>
 <style>
 :root{--bg:#effaf7;--card:#fff;--ink:#12403a;--sub:#5d8a83;--mint:#2bbfa4;--mint2:#9fe5d6;--line:#d3eee8;--low:#4a90d9;--normal:#14b8a6;--elev:#d9a514;--pre:#f08a24;--high:#e5484d;--coral:#ff8a80;--sun:#ffc857;--sky:#6ec6ff;--lav:#b79cff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}}
@@ -141,12 +141,39 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
  .chip b{font-size:1.1rem}
  .pill{font-size:.85rem;padding:5px 6px}
 }
+/* v8.0 look: D (A base + circle inputs + white country cards) on a sky-pastel background */
+:root{--s1:#d9efff;--s2:#ece3ff;--s3:#ffeef5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#12263f;--s2:#201b45;--s3:#2f1b3a}}
+:root[data-theme="dark"]{--s1:#12263f;--s2:#201b45;--s3:#2f1b3a}
+body{background:linear-gradient(180deg,var(--s1),var(--s2) 58%,var(--s3)) fixed;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;background:var(--tint,transparent);opacity:.1;pointer-events:none;z-index:0;transition:background .4s}
+.wrap{position:relative;z-index:1}
+header{background:radial-gradient(circle at 88% 22%,rgba(255,255,255,.75) 0 26px,transparent 27px),radial-gradient(circle at 95% 36%,rgba(255,255,255,.75) 0 19px,transparent 20px),radial-gradient(circle at 7% 82%,rgba(255,255,255,.55) 0 22px,transparent 23px),#bff0e4;color:#12403a;border-radius:0 0 40px 40px;margin:-16px -16px 0;padding:26px 20px 46px}
+header h1,header p{color:#12403a}header svg.deco,.fl{display:none}
+.lo{background:#fff;color:#12403a}
+header+.card{margin-top:-34px;position:relative}
+.card{border:0;border-radius:28px;box-shadow:0 6px 0 var(--line)}
+.auto .chip{border:0;border-radius:18px}.auto .chip:nth-child(1){background:color-mix(in srgb,#ffd84d 24%,var(--card))}.auto .chip:nth-child(2){background:color-mix(in srgb,#6ec6ff 24%,var(--card))}
+.seg button{border-radius:99px}.seg button.on{background:#0b7f6b;border-color:#0b7f6b;color:#fff;font-weight:400}
+.result{border-style:dashed}
+.row3 input,.row4 input,.bmi,.row3 button.main,.row4 button.main{height:auto;aspect-ratio:1/1;border-radius:50%;padding:0;width:100%;max-width:96px;margin:0 auto}
+.row3 input,.row4 input{display:block;border:3px solid #9fe0cf;text-align:center;margin-top:4px}
+.row3 input{font-size:30px}.row4 input{font-size:22px}
+.row3 button.main,.row4 button.main{background:#0b7f6b;box-shadow:0 5px 0 #075b4c;font-size:44px;justify-self:center}
+.row3 label,.row4 label{display:block;text-align:center}
+.nat2 .cb{background:var(--card);border-color:var(--line)}
+.login{background:linear-gradient(180deg,var(--s1),var(--s2) 58%,var(--s3))}.lbox{border:0;border-radius:28px;box-shadow:0 6px 0 var(--line)}
+@media (max-width:480px){
+ header{padding:22px 14px 44px;margin:-10px -10px 0;border-radius:0 0 36px 36px}
+ .row3 input{font-size:26px}.row4 input{font-size:19px}
+ .bmi b{font-size:1.05rem}.bmi small{font-size:.62rem}
+}
 .note{order:2;font-size:.75rem;color:var(--sub);text-align:center;margin:16px 0 4px}
 </style>
 </head>
 <body>
 <div id="login" class="login"><div class="lbox">
- <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#2bbfa4"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C10 43 6 30 6 21a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 9-4 22-26 37z" fill="#ff8fa3"/><circle cx="24" cy="30" r="3" fill="#12403a"/><circle cx="40" cy="30" r="3" fill="#12403a"/><path d="M26 38q6 6 12 0" stroke="#12403a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
  <h1 style="margin:8px 0 2px;font-size:1.4rem">마음 혈압 💗 몸무게</h1>
  <p style="margin:0 0 8px;color:var(--sub);font-size:.9rem">나만의 혈압·체중 기록장 🔒 로그인해 주세요</p>
  <input id="lemail" type="email" autocomplete="username" placeholder="이메일">
@@ -156,9 +183,9 @@ details.ref summary{cursor:pointer;color:var(--mint);font-size:.85rem;margin-bot
 </div></div>
 <div class="wrap" id="appwrap" style="display:none">
 <header>
- <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56C10 41 6 28 6 20a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 8-4 21-26 36z" fill="#fff"/><path d="M12 32h12l4-8 6 16 4-8h14" fill="none" stroke="#2bbfa4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C10 43 6 30 6 21a13 13 0 0 1 26-3 13 13 0 0 1 26 3c0 9-4 22-26 37z" fill="#ff8fa3"/><circle cx="24" cy="30" r="3" fill="#12403a"/><circle cx="40" cy="30" r="3" fill="#12403a"/><path d="M26 38q6 6 12 0" stroke="#12403a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
  <div><h1>마음 혈압 💗 몸무게</h1><p>매일 1분, 혈압과 체중을 가볍게 기록해요 🌿☀️</p></div>
- <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 7.2</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+ <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><span class="ver">Version 8.0</span></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
 <span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
 
 <section class="card">
@@ -270,7 +297,7 @@ $("save").onclick=async()=>{
 const capOf=v=>{if(v==="all")return"전체 기록";const d=v==="week"?7:30,a=new Date(Date.now()-d*864e5),b=new Date();return`최근 ${d}일 (${a.getMonth()+1}/${a.getDate()} ~ ${b.getMonth()+1}/${b.getDate()})`};
 function renderTips(){
  const last=data.at(-1),r=last?cls(last.s,last.d):null;
- document.body.style.background=r?`color-mix(in srgb,${r.c} 10%,var(--bg))`:"";
+ document.body.style.setProperty("--tint",r?r.c:"transparent");
 }
 let cur=new Date().getHours()<12?'am':'pm',apManual=false,view='all',showAll=false;
 const SC=['var(--normal)','var(--elev)','var(--pre)','var(--high)','var(--low)'];
