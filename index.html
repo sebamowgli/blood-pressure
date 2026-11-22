@@ -3,8 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#d9efff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="마음혈압">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-<title>마음 혈압 · 몸무게 v10.0</title>
+<title>마음 혈압 · 몸무게 v10.1</title>
 <style>
 :root{--bg:#effaf7;--card:#fff;--ink:#12403a;--sub:#5d8a83;--mint:#2bbfa4;--mint2:#9fe5d6;--line:#d3eee8;--low:#4a90d9;--normal:#14b8a6;--elev:#d9a514;--pre:#f08a24;--high:#e5484d;--coral:#ff8a80;--sun:#ffc857;--sky:#6ec6ff;--lav:#b79cff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d2421;--card:#14332f;--ink:#e3f7f3;--sub:#8fbdb5;--mint:#3fd0b5;--mint2:#1e5a50;--line:#24504a}}
@@ -208,8 +216,8 @@ header+.card{margin-top:14px}
 <div class="wrap" id="appwrap" style="display:none">
 <header>
  <svg width="70" height="52" viewBox="0 0 76 56" aria-hidden="true"><path d="M18 50a15 15 0 0 1-2-30 20 20 0 0 1 38-4 17 17 0 0 1 6 34z" fill="#fff"/><circle cx="30" cy="34" r="2.6" fill="#2a3566"/><circle cx="46" cy="34" r="2.6" fill="#2a3566"/><path d="M33 40q5 5 10 0" stroke="#2a3566" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="24" cy="39" r="4" fill="#ffc2d4" opacity=".8"/><circle cx="52" cy="39" r="4" fill="#ffc2d4" opacity=".8"/></svg>
- <div><h1>마음 혈압 💗 몸무게</h1><p>매일 1분, 혈압과 체중을 가볍게 기록해요 🌿☀️</p><span class="ver">Version 10.0</span></div>
- <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
+ <div><h1>마음 혈압 💗 몸무게</h1><p>매일 1분, 혈압과 체중을 가볍게 기록해요 🌿☀️</p><span class="ver">Version 10.1</span></div>
+ <div class="lw"><button id="logout" class="lo">🔒 로그아웃</button><button id="install" class="lo" style="display:none;margin-top:4px">📲 앱 설치</button></div><svg class="deco" width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 90C20 50 50 20 100 10c0 45-25 75-80 80z" fill="#fff"/><path d="M20 90C45 60 65 40 100 10" stroke="#2bbfa4" stroke-width="3" fill="none"/></svg>
 <span class="fl" style="right:92px;top:8px">💧</span><span class="fl" style="right:44px;top:44px;font-size:1.3rem">🍃</span><span class="fl" style="right:140px;bottom:6px;font-size:1.1rem">✨</span></header>
 
 <section class="card">
@@ -452,6 +460,10 @@ function drawChart(){
  el.scrollLeft=el.scrollWidth;
 }
 render();renderW();
+let dip;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;$("install").style.display=""});
+$("install").onclick=async()=>{if(!dip)return;dip.prompt();await dip.userChoice;dip=null;$("install").style.display="none"};
+addEventListener("appinstalled",()=>{$("install").style.display="none"});
+if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{drawChart();drawW()},150)});
 if(NOCFG){$("lmsg").textContent="⚠️ firebase-config.js 파일에 Firebase 설정값을 넣어 주세요."}
 else onAuthStateChanged(auth,u=>{
